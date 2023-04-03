@@ -1,0 +1,85 @@
+/* Front Image */
+.front-image{
+    width: 100%;
+    background-color: #f1c40f;
+    display: flex;
+    justify-content: space-around;
+}
+
+.front-image img{
+    width: 100%;
+}
+
+.front-text{
+    color: #111d4a;
+}
+
+.front-text button{
+    padding: 10px;
+    background-color: #111d4a;
+    border: none;
+    color: #f1c40f;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .front-text h1{
+        font-size: 20px;
+    }
+    .front-text h3{
+        font-size: 15px;
+    }
+    .front-text h5{
+        font-size: 10px;
+    }
+    .front-image{
+        padding-bottom: 2rem;
+    }
+}
+
+/* Wish */
+.wish{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.svg-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+.svg-text h1,p{
+    color: #f1c40f;
+    font-size: 25px;
+}
+
+.svg-text p{
+    font-size: 20px;
+}
+
+@media (max-width: 800px) {
+    .svg-text h1{
+        font-size: 20px;
+    }
+    .svg-text p{
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .svg-text h1{
+        font-size: 15px;
+    }
+    .svg-text p{
+        font-size: 12px;
+    }
+}

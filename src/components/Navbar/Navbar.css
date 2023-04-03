@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  /* background-color: #111D4A; */
+}
+
+.navbar {
+  height: 60px;
+  background-color: #111d4a;
+  position: relative;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo {
+  margin-top: 5px;
+}
+
+.menu-icon {
+  display: none;
+}
+
+.nav-elements ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.nav-elements ul li:not(:last-child) {
+  margin-right: 60px;
+}
+
+.nav-elements ul a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #f1c40f;
+  text-decoration: none;
+}
+
+.nav-elements ul a.active {
+  color: #f1c40f;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-elements ul a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #f1c40f;
+}
+
+/* Hover list */
+.nav-elements ul li .list{
+  display: none;
+  position: relative;
+  margin-left: -40px;
+}
+
+.show-category:hover .list{
+  display: block;
+  position: absolute;
+  background-color: #111d4a;
+  color: #f1c40f;
+}
+
+.list li{
+  padding: 1rem 0;
+  font-weight: 400;
+}
+
+.list li:hover{
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+    border-color: #f1c40f;
+  }
+
+  .nav-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: #111d4a;
+    width: 0px;
+    height: calc(100vh - 60px);
+    transition: all 0.5s ease-in;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  .nav-elements.active {
+    width: 270px;
+  }
+
+  .nav-elements ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-elements ul li {
+    margin-right: unset;
+    margin-top: 22px;
+  }
+
+  /* Hover show list */
+  .show-category{
+    position: relative;
+  }
+
+  .show-category:hover .list{
+    margin-top: -20px;
+    margin-left: 70px;
+    padding-bottom: 20px;
+    position: absolute;
+  }
+  .list li{
+    padding: 0;
+    font-weight: 400;
+  }
+}
