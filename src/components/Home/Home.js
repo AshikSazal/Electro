@@ -2,6 +2,7 @@ import React from "react";
 
 import front_page from "../../icons/demo.jpg";
 import wave from "./wave.svg";
+import MultiCarousel from "../Carousel/MultiCarousel";
 import "./Home.css";
 
 const Home = () => {
@@ -28,10 +29,12 @@ const Home = () => {
           <h1>Your wish, Our target</h1>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Lorem
-            ipsum dolor sit, amet consectetur adipisicing elit.
+            ipsum dolor sit, amet consectetur adipisicing elit. lorem
           </p>
         </div>
       </div>
+
+      <MultiCarousel />
       
     </>
   );
