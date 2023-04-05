@@ -1,0 +1,30 @@
+.input{
+    margin: 1rem 0;
+}
+
+.input input{
+    display: block;
+}
+
+.input input{
+    width: 100%;
+    font: inherit;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    padding: 0.15rem 0.15rem;
+}
+
+.input input:focus{
+    outline: none;
+    background: #ebebeb;
+    border-color: #111d4a;
+}
+
+.input-invalid p{
+    color: redd;
+}
+
+.input-invalid input{
+    border-color: red;
+    background-color: #ffd1d1;
+}
