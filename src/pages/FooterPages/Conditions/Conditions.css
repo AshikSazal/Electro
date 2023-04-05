@@ -1,12 +1,12 @@
-.policy{
+.conditions{
     padding: 100px;
 }
 
-.policy h4{
+.conditions h4{
     font-size: 25px;
 }
 
-.policy p{
+.conditions p{
     color: black;
     font-size: 15px;
 }

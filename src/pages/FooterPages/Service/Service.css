@@ -1,12 +1,12 @@
-.policy{
+.service{
     padding: 100px;
 }
 
-.policy h4{
+.service h4{
     font-size: 25px;
 }
 
-.policy p{
+.service p{
     color: black;
     font-size: 15px;
 }

@@ -8,13 +8,13 @@ const Footer = () => {
     <div className="footer">
       <div className="footer-list">
         <section>
-          <NavLink to="/support">Support</NavLink>
+          <NavLink to="/service">Service</NavLink>
         </section>
         <section>
           <NavLink to="/policy">Privacy Policy</NavLink>
         </section>
         <section>
-          <NavLink to="/service">Terms of service</NavLink>
+          <NavLink to="/conditions">Terms and Conditions</NavLink>
         </section>
       </div>
       <div className="copyright">
