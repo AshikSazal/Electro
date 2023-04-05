@@ -7,6 +7,7 @@ import Error from "./components/Error/Error";
 import Service from "./pages/FooterPages/Service/Service";
 import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
+import Auth from "./user/Pages/Auth";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/service" element={<Service />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/conditions" element={<Conditions />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

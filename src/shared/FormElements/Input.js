@@ -8,7 +8,7 @@ const Input = (props) => {
         <input id={props.id}
         type={props.type}
         placeholder={props.placeholder}
-        value="hi"
+        value=""
          />
     </div>
   )

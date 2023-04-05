@@ -1,5 +1,6 @@
 .input{
-    margin: 1rem 0;
+    /* margin: 1rem 0; */
+    padding: 0 0 2rem 0;
 }
 
 .input input{
@@ -7,11 +8,12 @@
 }
 
 .input input{
-    width: 100%;
+    width: 98%;
     font: inherit;
     border: 1px solid #ccc;
     background-color: #f8f8f8;
     padding: 0.15rem 0.15rem;
+    border-radius: 15px;
 }
 
 .input input:focus{
