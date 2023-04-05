@@ -8,11 +8,11 @@
 }
 
 .input input{
-    width: 98%;
+    width: 88.5%;
     font: inherit;
     border: 1px solid #ccc;
     background-color: #f8f8f8;
-    padding: 0.15rem 0.15rem;
+    padding: 0.30rem 1rem;
     border-radius: 15px;
 }
 
@@ -22,11 +22,12 @@
     border-color: #111d4a;
 }
 
-.input-invalid p{
-    color: redd;
+.input--invalid p{
+    color: red;
+    font-size: 10px;
 }
 
-.input-invalid input{
+.input--invalid input{
     border-color: red;
     background-color: #ffd1d1;
 }
