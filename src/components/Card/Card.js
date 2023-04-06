@@ -1,23 +1,24 @@
 import React from "react";
 
 import "./Card.css";
-import { NavLink } from "react-router-dom";
+import Button from "../../shared/FormElements/Button";
 
 export default function Card(props) {
+
   return (
     <div className="hov">
       <div className="read">
         <p>
-          <NavLink to='/product/:productlist/:id'>Read More</NavLink>
+          <Button to={`/product/${props.item.category}/${props.item.id}`}>Read More</Button>
         </p>
         <p>
-          <button>Add to Cart</button>
+          <Button>Add to Cart</Button>
         </p>
       </div>
-      <div className="card" key={props.id}>
-        <img className="product--image" src={props.url} alt="" />
-        <h2>{props.name}</h2>
-        <p className="price">{props.price}</p>
+      <div className="card" key={props.item.id}>
+        <img className="product--image" src={props.item.imageurl} alt="" />
+        <h2>{props.item.name}</h2>
+        <p className="price">{props.item.price}</p>
       </div>
     </div>
   );

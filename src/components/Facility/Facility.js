@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./Element.css";
+import "./Facility.css";
 
-const Element = () => {
+const Facility = () => {
   return (
     <div className="elementor">
       <div className="elemetor-list">
@@ -23,4 +23,4 @@ const Element = () => {
   );
 };
 
-export default Element;
+export default Facility;

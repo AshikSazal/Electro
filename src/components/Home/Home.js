@@ -3,7 +3,7 @@ import React from "react";
 import front_page from "../../icons/demo.jpg";
 import wave from "./wave.svg";
 import MultiCarousel from "../Carousel/MultiCarousel";
-import Element from "../Element/Element";
+import Facility from "../Facility/Facility";
 import "./Home.css";
 
 const Home = () => {
@@ -36,7 +36,7 @@ const Home = () => {
       </div>
 
       <MultiCarousel />
-      <Element />      
+      <Facility />      
     </>
   );
 };

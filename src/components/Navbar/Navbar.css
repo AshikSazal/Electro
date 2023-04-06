@@ -35,6 +35,7 @@ body {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
+  z-index: 10;
 }
 
 .nav-elements ul li:not(:last-child) {
