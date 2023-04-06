@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react";
+import React from "react";
 
 import "./Auth.css";
 import Input from "../../shared/FormElements/Input";
@@ -7,55 +7,13 @@ import {
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 import Button from "../../shared/FormElements/Button";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        if(!state.inputs[inputId]){
-          continue;
-        }
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {...state.inputs, 
-        [action.inputId]:{value: action.value, isValid: action.isValid}
-        },
-        isValid: formIsValid
-      }
-      default:
-        return state;
-      }
-};
+import { useForm } from "../../shared/hooks/form-hook";
 
 const Auth = () => {
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
-      email: {
-        value: "",
-        isValid: false,
-      },
-      password: {
-        value: "",
-        isValid: false,
-      },
-    },
-  });
-
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({
-      type: "INPUT_CHANGE",
-      value: value,
-      isValid: isValid,
-      inputId: id,
-    });
-  }, []);
+  const [formState, inputHandler] = useForm({
+    email: { value: "", isValid: false},
+    password: {value: "", isValid: false}
+  }, false);
 
   const authSubmitHandler = (event) => {
     event.preventDefault();
@@ -93,7 +51,7 @@ const Auth = () => {
               errorText="Please enter a valid password, at least 4 characters."
               onInput={inputHandler}
             />
-            <Button>Sign in</Button>
+            <Button disabled={!formState.isValid}>Sign in</Button>
           </form>
         </div>
       </div>

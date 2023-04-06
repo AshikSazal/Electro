@@ -10,6 +10,11 @@ const Navbar = () => {
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
+    if(!showNavbar){
+      document.getElementsByTagName("body")[0].style.overflow = "hidden";
+    } else{
+      document.getElementsByTagName("body")[0].style.overflow = "";
+    }
   };
 
   return (
