@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Auth.css";
 import Input from "../../shared/FormElements/Input";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
 import Button from "../../shared/FormElements/Button";
 import { useForm } from "../../shared/hooks/form-hook";
 
 const Auth = () => {
-  const [formState, inputHandler] = useForm({
-    email: { value: "", isValid: false},
-    password: {value: "", isValid: false}
-  }, false);
+  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      email: { value: "", isValid: false },
+      password: { value: "", isValid: false },
+    },
+    false
+  );
+
+  const switchModeHandler = () => {
+    if (!isLoginMode) {
+      // it will work in sign in mood
+      setFormData(
+        {
+          ...formState.inputs,
+          name: undefined,
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      // It will work in sign up mood
+      setFormData(
+        {
+          ...formState.inputs,
+          name: {
+            value: "",
+            isValid: false,
+          },
+        },
+        false
+      );
+    }
+    setIsLoginMode((prevMode) => !prevMode);
+  };
 
   const authSubmitHandler = (event) => {
     event.preventDefault();
@@ -31,8 +62,19 @@ const Auth = () => {
             <h5 className="small-text">Please sign in to continue</h5>
           </div>
         </div>
-        <div className="form" >
+        <div className="form">
           <form onSubmit={authSubmitHandler}>
+            {!isLoginMode && (
+              <Input
+                id="name"
+                placeholder="Name"
+                element="input"
+                type="text"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Please enter a name."
+                onInput={inputHandler}
+              />
+            )}
             <Input
               id="email"
               placeholder="E-mail"
@@ -51,8 +93,13 @@ const Auth = () => {
               errorText="Please enter a valid password, at least 4 characters."
               onInput={inputHandler}
             />
-            <Button disabled={!formState.isValid}>Sign in</Button>
+            <Button disabled={!formState.isValid}>
+              {isLoginMode ? "Sign In" : "Sign Up"}
+            </Button>
           </form>
+          <Button inverse onClick={switchModeHandler}>
+            Click here to {isLoginMode ? "Sign Up" : "Sign In"}
+          </Button>
         </div>
       </div>
     </div>
