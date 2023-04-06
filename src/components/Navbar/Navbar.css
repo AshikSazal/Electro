@@ -94,9 +94,6 @@ body {
 }
 
 @media (max-width: 600px) {
-  body .menu-icon{
-    overflow-y: hidden;
-  }
   .menu-icon {
     display: block;
     cursor: pointer;
