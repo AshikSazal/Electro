@@ -9,6 +9,7 @@ import {
 } from "../../shared/util/validators";
 import Button from "../../shared/FormElements/Button";
 import { useForm } from "../../shared/hooks/form-hook";
+import { useAuth } from "../../shared/hooks/auth-hook";
 
 const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
