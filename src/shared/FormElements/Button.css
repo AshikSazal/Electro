@@ -30,11 +30,12 @@
 .button--inverse{
     margin-top: 30px;
     background: transparent;
-    color: #111d4a;
+    color: #f1c40f;
 }
 
 .button--inverse:hover,
 .button--inverse:active{
     text-decoration: underline;
     background-color: white;
+    color: #111d4a;
 }

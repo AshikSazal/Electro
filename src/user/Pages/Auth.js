@@ -59,7 +59,7 @@ const Auth = () => {
           <div className="header-container">
             <h2 className="header-text">Welcome</h2>
             <h2 className="header-text">back</h2>
-            <h5 className="small-text">Please sign in to continue</h5>
+            <h5 className="small-text">Please {isLoginMode ? "Sign In" : "Sign Up"} to continue</h5>
           </div>
         </div>
         <div className="form">

@@ -1,14 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Button.css";
 
 const Button = (props) => {
   if (props.to) {
     return (
-      <NavLink to={props.to} exact={props.exact} className="button">
+      <Link to={props.to} exact={props.exact} className="button">
         {props.children}
-      </NavLink>
+      </Link>
     );
   }
   return (
