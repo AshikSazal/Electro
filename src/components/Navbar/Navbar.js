@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { useAuth } from "../../shared/hooks/auth-hook";
 import menu from "../../icons/menu.png";
 import logo from "../../icons/logo.png";
+import sign_in from "../../icons/sign_in.png";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const { isLoggedIn, logoutHandler } = useAuth();
   const [showNavbar, setShowNavbar] = useState(false);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
-    if(!showNavbar){
+    if (!showNavbar) {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
-    } else{
+    } else {
       document.getElementsByTagName("body")[0].style.overflow = "";
     }
   };
@@ -36,9 +39,15 @@ const Navbar = () => {
             <li className="show-category">
               <NavLink to="/product">Product</NavLink>
               <ul className="list">
-                <li><NavLink to="/product/tv">Television</NavLink></li>
-                <li><NavLink to="/product/mobile">Mobile</NavLink></li>
-                <li><NavLink to="/product/laptop">Laptop</NavLink></li>
+                <li>
+                  <NavLink to="/product/tv">Television</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/product/mobile">Mobile</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/product/laptop">Laptop</NavLink>
+                </li>
               </ul>
             </li>
             <li>
@@ -50,8 +59,19 @@ const Navbar = () => {
             <li>
               <NavLink to="/cart">Cart</NavLink>
             </li>
-            <li>
-              <NavLink to="/auth">Login</NavLink>
+            <li className="show-logout">
+              {isLoggedIn ? (
+                <>
+                  <img src={sign_in} alt="" />
+                  <ul className="logout">
+                    <li>
+                      <button className="btn" onClick={logoutHandler}>Log out</button>
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                <NavLink to="/auth">Login</NavLink>
+              )}
             </li>
           </ul>
         </div>

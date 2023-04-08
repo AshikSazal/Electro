@@ -12,6 +12,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useAuth } from "../../shared/hooks/auth-hook";
 
 const Auth = () => {
+  const { loginHandler } = useAuth();
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -49,7 +50,7 @@ const Auth = () => {
 
   const authSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+    loginHandler(formState.inputs.email.value, formState.inputs.password.value)
   };
 
   return (

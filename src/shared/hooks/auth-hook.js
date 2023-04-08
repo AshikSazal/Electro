@@ -14,13 +14,13 @@ export const useAuth = () => {
         }
     }, [dispatch]);
     
-    const handleLogin = (userId, token) => {
+    const loginHandler = (userId, token) => {
     dispatch(login({ userId, token }));
   };
 
-  const handleLogout = () => {
+  const logoutHandler = () => {
     dispatch(logout());
   };
 
-  return { isLoggedIn, handleLogin, handleLogout };
+  return { isLoggedIn, loginHandler, logoutHandler };
 };
