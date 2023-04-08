@@ -2,12 +2,12 @@ import React from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Card from "../Card/Card";
+import ProductItem from "../../product/ProductItem";
 import { productData, responsive } from "../../data/data";
 import "./MultiCarousel.css";
 
 const MultiCarousel = () => {
-  const product = productData.map((item) => <Card key={item.id} item={item} />);
+  const product = productData.map((item) => <ProductItem key={item.id} item={item} />);
 
   return (
     <div className="root">

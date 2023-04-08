@@ -23,7 +23,7 @@ const formReducer = (state, action) => {
         },
         isValid: formIsValid,
       };
-    case "SET_DATA":
+      case "SET_DATA":
       return {
         // This statement for replace the whole data
         inputs: action.inputs,
