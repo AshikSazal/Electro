@@ -4,6 +4,7 @@ import front_page from "../../icons/demo.jpg";
 import wave from "./wave.svg";
 import MultiCarousel from "../Carousel/MultiCarousel";
 import Facility from "../Facility/Facility";
+import Button from "../../shared/FormElements/Button";
 import "./Home.css";
 
 const Home = () => {
@@ -20,7 +21,7 @@ const Home = () => {
             Lorem ipsum dolor sit amet,
             <br /> consectetur adipisicing elit.
           </h5>
-          <button className="btn">Read more</button>
+          <Button>Read more</Button>
         </div>
       </div>
 

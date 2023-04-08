@@ -15,12 +15,12 @@
 }
 
 .front-text button{
-    padding: 10px;
     background-color: #111d4a;
     border: none;
     color: #f1c40f;
     border-radius: 10px;
     cursor: pointer;
+    width: 50%;
 }
 
 @media (max-width: 700px) {
@@ -35,6 +35,14 @@
     }
     .front-image{
         padding-bottom: 2rem;
+    }
+    .front-text button{
+        background-color: #111d4a;
+        border: none;
+        color: #f1c40f;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
     }
 }
 
