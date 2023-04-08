@@ -24,7 +24,6 @@ const App = () => {
         <Route path="/service" element={<Service />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/conditions" element={<Conditions />} />
-        {/* <Route path="/auth" element={<Auth />} /> */}
         {!isLoggedIn ? (
           <Route path="/auth" element={<Auth />} />
         ) : (
