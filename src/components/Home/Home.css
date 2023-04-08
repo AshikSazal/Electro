@@ -61,8 +61,8 @@
     align-items: center;
     flex-direction: column;
     position: absolute;
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
 }
 
 .svg-text h1,p{

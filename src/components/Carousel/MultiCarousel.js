@@ -12,7 +12,7 @@ const MultiCarousel = () => {
   return (
     <div className="root">
       <h1>Product</h1>
-      <Carousel infinite={true} responsive={responsive}>
+      <Carousel autoPlay={true} infinite={true} responsive={responsive}>
         {product}
       </Carousel>
     </div>
