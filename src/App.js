@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import Error from "./components/Error/Error";
+import ErrorModal from "./components/Error/ErrorModal";
 import Service from "./pages/FooterPages/Service/Service";
 import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/auth" element={<Navigate replace to="/" />} />
         )}
         <Route path="/product/:productcategory/:id" element={<ProductItem />} />
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<ErrorModal />} />
       </Routes>
       <Footer />
     </div>

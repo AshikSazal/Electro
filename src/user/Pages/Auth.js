@@ -10,10 +10,12 @@ import {
 import Button from "../../shared/FormElements/Button";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useAuth } from "../../shared/hooks/auth-hook";
+import ErrorModal from "../../components/Error/ErrorModal";
 
 const Auth = () => {
   const { loginHandler } = useAuth();
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const [error, setError ]=useState("hi")
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: "", isValid: false },
@@ -48,12 +50,18 @@ const Auth = () => {
     setIsLoginMode((prevMode) => !prevMode);
   };
 
+  const clearError = () => {
+    setError(null);
+  };
+
   const authSubmitHandler = (event) => {
     event.preventDefault();
     loginHandler(formState.inputs.email.value, formState.inputs.password.value)
   };
 
   return (
+    <React.Fragment>
+    <ErrorModal error={error} onClear={clearError} />
     <div className="auth">
       <div className="auth-container">
         <div className="top-container">
@@ -105,6 +113,7 @@ const Auth = () => {
         </div>
       </div>
     </div>
+    </React.Fragment>
   );
 };
 
