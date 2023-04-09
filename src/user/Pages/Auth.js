@@ -11,11 +11,12 @@ import Button from "../../shared/FormElements/Button";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useAuth } from "../../shared/hooks/auth-hook";
 import ErrorModal from "../../components/Error/ErrorModal";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const Auth = () => {
   const { loginHandler } = useAuth();
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const [error, setError ]=useState("hi")
+  const { error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: "", isValid: false },
@@ -50,13 +51,47 @@ const Auth = () => {
     setIsLoginMode((prevMode) => !prevMode);
   };
 
-  const clearError = () => {
-    setError(null);
-  };
+  // const authSubmitHandler = (event) => {
+  //   event.preventDefault();
+  //   loginHandler(formState.inputs.email.value, formState.inputs.password.value)
+  // };
 
-  const authSubmitHandler = (event) => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault();
-    loginHandler(formState.inputs.email.value, formState.inputs.password.value)
+
+    if (isLoginMode) {
+      try {
+        const responseData = await sendRequest(
+          "http://127.0.0.1:8000/api/login",
+          "POST",
+          JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+          {
+            "Content-type": "application/json",
+          }
+        );
+        // console.log(responseData);
+        loginHandler(responseData.userId, responseData.token);
+      } catch (err) {
+        // no need cos it's already done in custom http-hook
+      }
+    } else {
+      try {
+        const formData = new FormData();
+        formData.append("name", formState.inputs.name.value);
+        formData.append("email", formState.inputs.email.value);
+        formData.append("password", formState.inputs.password.value);
+        const responseData = await sendRequest(
+          "http://127.0.0.1:8000/api/register",
+          "POST",
+          formData
+          // no need to add headers cos automatically it will added
+        );
+        loginHandler(responseData.userId, responseData.token);
+      } catch (err) {}
+    }
   };
 
   return (
