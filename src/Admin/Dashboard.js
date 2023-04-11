@@ -1,25 +1,31 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import List from "@mui/material/List";
-import Home from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import {
+  List,
+  Toolbar,
+  Typography,
+  AppBar,
+  Box,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+} from "@mui/material";
+import {
+  Queue,
+  AddShoppingCart,
+  Home,
+  Menu,
+  Inventory2,
+  PermIdentity,
+} from "@mui/icons-material";
+import UploadProduct from "./pages/components/UploadProduct";
 import HomePage from "./pages/components/HomePage";
 import Product from "./pages/components/Product";
 import Order from "./pages/components/Order";
 import Customer from "./pages/components/Customer";
-import ListItems from "./pages/components/ListItems";
+import ListItems from "./pages/ListItems";
 
 const drawerWidth = 240;
 
@@ -27,7 +33,7 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -38,10 +44,31 @@ const navigate = useNavigate();
       <Toolbar />
       <Divider />
       <List>
-        <ListItems icon={<Home />} onClick={()=> navigate("/electro")} text="Home" />
-        <ListItems icon={<AddShoppingCartIcon />} onClick={()=> navigate("/electro/order")} text="Order" />
-        <ListItems icon={<Inventory2Icon />} onClick={()=> navigate("/electro/product")} text="Product" />
-        <ListItems icon={<PermIdentityIcon />} onClick={()=> navigate("/electro/customer")} text="Customer" />
+        <ListItems
+          icon={<Home />}
+          onClick={() => navigate("/electro")}
+          text="Home"
+        />
+        <ListItems
+          icon={<AddShoppingCart />}
+          onClick={() => navigate("/electro/order")}
+          text="Order"
+        />
+        <ListItems
+          icon={<Inventory2 />}
+          onClick={() => navigate("/electro/product")}
+          text="Product"
+        />
+        <ListItems
+          icon={<Queue />}
+          onClick={() => navigate("/electro/upload")}
+          text="Upload"
+        />
+        <ListItems
+          icon={<PermIdentity />}
+          onClick={() => navigate("/electro/customer")}
+          text="Customer"
+        />
       </List>
       <Divider />
     </div>
@@ -68,7 +95,7 @@ const navigate = useNavigate();
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Responsive drawer
@@ -123,10 +150,11 @@ const navigate = useNavigate();
       >
         <Toolbar />
         <Routes>
-            <Route exact path="/electro" element={<HomePage />}/>
-            <Route path="/electro/order" element={<Order />}/>
-            <Route path="/electro/product" element={<Product />}/>
-            <Route path="/electro/customer" element={<Customer />}/>
+          <Route exact path="/electro" element={<HomePage />} />
+          <Route path="/electro/order" element={<Order />} />
+          <Route path="/electro/product" element={<Product />} />
+          <Route path="/electro/upload" element={<UploadProduct />} />
+          <Route path="/electro/customer" element={<Customer />} />
         </Routes>
       </Box>
     </Box>
