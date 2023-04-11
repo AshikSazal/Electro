@@ -1,10 +1,19 @@
 .upload{
-  width: 90%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  text-align: center;
+  width: 100vh;
+  margin: auto;
+  border-radius: 50px;
 }
 
-.upload div{
-  padding: 10px;
+.upload .input-upload{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.upload form{
+  padding: 20px;
 }
