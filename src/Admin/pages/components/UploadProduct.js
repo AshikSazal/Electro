@@ -53,7 +53,7 @@ const UploadProduct = () => {
             />
             <Input
               id="name"
-              placeholder="Name"
+              placeholder="Description"
               element="textarea"
               cols="40"
               type="text"

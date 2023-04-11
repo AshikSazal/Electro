@@ -17,3 +17,19 @@
 .upload form{
   padding: 20px;
 }
+
+@media (max-width: 1000px) {
+  .upload{
+    margin: auto;
+    width: 50vh;
+  }
+  .upload .input-upload{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .input-upload input{
+    width: 100%;
+  }
+}
