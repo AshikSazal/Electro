@@ -63,6 +63,7 @@ const Input = (props) => {
       <textarea
         id={props.id}
         rows={props.rows || 3}
+        cols={props.cols || 10}
         type={props.type}
         placeholder={props.placeholder}
         onChange={changeHandler}
