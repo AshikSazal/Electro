@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   List,
@@ -150,6 +150,7 @@ function Dashboard(props) {
       >
         <Toolbar />
         <Routes>
+          <Route path="*" element={<Navigate replace to="/electro" />} />
           <Route exact path="/electro" element={<HomePage />} />
           <Route path="/electro/order" element={<Order />} />
           <Route path="/electro/product" element={<Product />} />

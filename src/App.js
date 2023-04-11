@@ -24,7 +24,7 @@ const App = () => {
         <div>
           <Navbar />
           <Routes>
-            {!val && <Route path="/electro/*" element={<Navigate replace to="/" />} />}
+            <Route path="/electro/*" element={<Navigate replace to="/" />} />
             <Route exact path="/" element={<Home />} />
             {/* <Route path="/product/:tv" element={<Television />} /> */}
             {/* <Route path="/product/:productlist/:id" element={<Television />} /> */}
