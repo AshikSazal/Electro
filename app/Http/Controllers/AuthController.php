@@ -6,25 +6,22 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function register(Request $req, $modelName)
+    public function register(Request $req, $role)
     {
-        $model = "App\\Models\\" . ucfirst($modelName);
+        $role = (int)$role;
         try {
-            $user = $model::create([
+            $user = User::create([
                 'name' => $req->input('name'),
                 'email' => $req->input('email'),
                 'password' => Hash::make($req->input('password')),
+                'role'=>$role
             ]);
-
             $token = $user->createToken('user_token')->plainTextToken;
-            if ($modelName === 'admin') {
-                $token = $token . "|@|1";
-            } else if ($modelName === 'customer') {
-                $token = $token . "|@|3";
-            }
+            $token = $token."|@|".$role;
             return response()->json(['token' => $token], 200);
         } catch (Exception $exp) {
             return response()->json([
@@ -32,18 +29,13 @@ class AuthController extends Controller
             ]);
         }
     }
-    public function login(Request $req, $modelName)
+    public function login(Request $req)
     {
-        $model = "App\\Models\\" . ucfirst($modelName);
         try {
-            $user = $model::where('email', '=', $req->input('email'))->firstOrFail();
+            $user = User::where('email', '=', $req->input('email'))->firstOrFail();
             if (Hash::check($req->input('password'), $user->password)) {
                 $token = $user->createToken('user_token')->plainTextToken;
-                if ($modelName === 'admin') {
-                    $token = $token . "|@|1";
-                } else if ($modelName === 'customer') {
-                    $token = $token . "|@|3";
-                }
+                $token = $token."|@|".$user->role;
                 return response()->json(['token' => $token], 200);
             }
             throw new Exception("Password is not correct");
