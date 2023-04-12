@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('check.duplication')->post('/register/{modelType}',[RegisterController::class, 'register']);
+Route::middleware('check.duplication')->post('/register/{modelType}',[AuthController::class, 'register']);
+Route::post('/login/{modelType}',[AuthController::class, 'login']);
+Route::post('/logout/{modelType}',[AuthController::class, 'logout']);
