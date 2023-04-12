@@ -9,13 +9,13 @@ export const useAuth = () => {
 
   useEffect(() => {
       const storedData = JSON.parse(localStorage.getItem('userData'));
-      if (storedData && storedData.token && storedData.userId) {
-          dispatch(login({ userId: storedData.userId, token: storedData.token }));
+      if (storedData && storedData.token && storedData.position) {
+          dispatch(login({ token: storedData.token, position: storedData.position }));
         }
     }, [dispatch]);
     
-    const loginHandler = (userId, token) => {
-    dispatch(login({ userId, token }));
+    const loginHandler = (token, position) => {
+    dispatch(login({ token, position }));
   };
 
   const logoutHandler = () => {
