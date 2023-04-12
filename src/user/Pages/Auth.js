@@ -62,7 +62,7 @@ const Auth = () => {
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
-          "http://127.0.0.1:8000/api/login",
+          "http://127.0.0.1:8000/api/login/customer",
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -72,8 +72,8 @@ const Auth = () => {
             "Content-type": "application/json",
           }
         );
-        console.log(responseData);
-        loginHandler(responseData.userId, responseData.token);
+        const [userToken, userPosition] = responseData.token.split("|@|");
+        loginHandler(userToken, userPosition);
       } catch (err) {
         // no need cos it's already done in custom http-hook
       }

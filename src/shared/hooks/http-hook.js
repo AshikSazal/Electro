@@ -29,8 +29,6 @@ export const useHttpClient = () => {
           (reqCtrl) => reqCtrl !== httpAbortController
         );
 
-        console.log(response.ok)
-
         // error 400 and 500
         if (!response.ok || responseData.error) {
           throw new Error(responseData.error);
