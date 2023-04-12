@@ -5,8 +5,12 @@ namespace App\Http\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
-class CheckDuplicateRegistration
+
+class CheckLogin
 {
     /**
      * Handle an incoming request.
@@ -15,7 +19,7 @@ class CheckDuplicateRegistration
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $req, Closure $next)
+    public function handle(Request $req, Closure $next):Response
     {
         $model = ucfirst($req->route('modelType'));
         $modelName = "App\\Models\\$model";
@@ -24,19 +28,17 @@ class CheckDuplicateRegistration
                 throw new Exception("Invalid Request");
             }
             $req->validate([
-                'name' => 'required|string',
                 'email' => 'required|email',
                 'password' => 'required|string|min:6',
-            ]);                
+            ]);
             $email = $req->input('email');
             $dataExists = $modelName::where('email', $email)->first();
-            if ($dataExists) {
-                throw new Exception("Email already exists");
+            if (!$dataExists) {
+                throw new Exception("Email Not found");
             }
         } catch (Exception $exp) {
             return response(["error" => $exp->getMessage()]);
         }
-
         return $next($req);
     }
 }

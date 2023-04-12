@@ -20,5 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('check.duplication')->post('/register/{modelType}',[AuthController::class, 'register']);
-Route::post('/login/{modelType}',[AuthController::class, 'login']);
-Route::post('/logout/{modelType}',[AuthController::class, 'logout']);
+Route::middleware('check.login')->post('/login/{modelType}',[AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout',[AuthController::class, 'logout']);
+
+
+// Without middleware
+// Route::post('/register/{modelType}',[AuthController::class, 'register']);
