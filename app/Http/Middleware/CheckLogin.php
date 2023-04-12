@@ -34,7 +34,7 @@ class CheckLogin
             $email = $req->input('email');
             $dataExists = $modelName::where('email', $email)->first();
             if (!$dataExists) {
-                throw new Exception("Email Not found");
+                throw new Exception("User Not found");
             }
         } catch (Exception $exp) {
             return response(["error" => $exp->getMessage()]);

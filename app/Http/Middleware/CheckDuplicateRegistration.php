@@ -31,7 +31,7 @@ class CheckDuplicateRegistration
             $email = $req->input('email');
             $dataExists = $modelName::where('email', $email)->first();
             if ($dataExists) {
-                throw new Exception("Email already exists");
+                throw new Exception("User already exists");
             }
         } catch (Exception $exp) {
             return response(["error" => $exp->getMessage()]);
