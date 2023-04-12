@@ -8,7 +8,7 @@ import sign_in from "../../icons/sign_in.png";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { isLoggedIn, logoutHandler } = useAuth();
+  const { role, logoutHandler } = useAuth();
   const [showNavbar, setShowNavbar] = useState(false);
 
   const handleShowNavbar = () => {
@@ -60,7 +60,7 @@ const Navbar = () => {
               <NavLink to="/cart">Cart</NavLink>
             </li>
             <li className="show-logout">
-              {isLoggedIn ? (
+              {role !==null ? (
                 <>
                   <img src={sign_in} alt="" />
                   <ul className="logout">

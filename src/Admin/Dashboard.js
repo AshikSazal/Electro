@@ -19,6 +19,7 @@ import {
   Menu,
   Inventory2,
   PermIdentity,
+  Logout
 } from "@mui/icons-material";
 import UploadProduct from "./pages/components/UploadProduct";
 import HomePage from "./pages/components/HomePage";
@@ -26,10 +27,12 @@ import Product from "./pages/components/Product";
 import Order from "./pages/components/Order";
 import Customer from "./pages/components/Customer";
 import ListItems from "./pages/ListItems";
+import { useAuth } from "../shared/hooks/auth-hook";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
+  const { logoutHandler } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -68,6 +71,11 @@ function Dashboard(props) {
           icon={<PermIdentity />}
           onClick={() => navigate("/electro/customer")}
           text="Customer"
+        />
+        <ListItems
+          icon={<Logout />}
+          onClick={logoutHandler}
+          text="Logout"
         />
       </List>
       <Divider />

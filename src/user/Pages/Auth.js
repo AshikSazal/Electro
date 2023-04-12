@@ -62,7 +62,7 @@ const Auth = () => {
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
-          "http://127.0.0.1:8000/api/login/customer",
+          "http://127.0.0.1:8000/api/login",
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -72,8 +72,8 @@ const Auth = () => {
             "Content-type": "application/json",
           }
         );
-        const [userToken, userPosition] = responseData.token.split("|@|");
-        loginHandler(userToken, userPosition);
+        const [userToken, role] = responseData.token.split("|@|");
+        loginHandler(userToken, role);
       } catch (err) {
         // no need cos it's already done in custom http-hook
       }
@@ -84,7 +84,7 @@ const Auth = () => {
         formData.append("email", formState.inputs.email.value);
         formData.append("password", formState.inputs.password.value);
         const responseData = await sendRequest(
-          "http://127.0.0.1:8000/api/register/customer",
+          "http://127.0.0.1:8000/api/register/3",
           "POST",
           formData
           // no need to add headers cos automatically it will added

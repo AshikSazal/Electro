@@ -15,12 +15,11 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import Dashboard from "./Admin/Dashboard";
 
 const App = () => {
-  const { isLoggedIn } = useAuth();
-  const val = false;
-
+  const { role } = useAuth();
+  
   return (
     <>
-      {!val ? (
+      {role === null || +role === 3 ? (
         <div>
           <Navbar />
           <Routes>
@@ -31,7 +30,7 @@ const App = () => {
             <Route path="/service" element={<Service />} />
             <Route path="/policy" element={<Policy />} />
             <Route path="/conditions" element={<Conditions />} />
-            {!isLoggedIn ? (
+            {role===null ? (
               <Route path="/auth" element={<Auth />} />
             ) : (
               <Route path="/auth" element={<Navigate replace to="/" />} />

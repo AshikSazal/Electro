@@ -2,24 +2,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { login, logout } from "../../store/authSlice";
 import { useHttpClient } from "./http-hook";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { sendRequest } = useHttpClient();
 
-  const { isLoggedIn, token } = useSelector((state) => state.user);
+  const { token, role } = useSelector((state) => state.user);
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (storedData && storedData.token && storedData.position) {
+    if (storedData && storedData.token && storedData.role) {
       dispatch(
-        login({ token: storedData.token, position: storedData.position })
+        login({ token: storedData.token, role: storedData.role })
       );
     }
   }, [dispatch]);
 
-  const loginHandler = (token, position) => {
-    dispatch(login({ token, position }));
+  const loginHandler = (token, role) => {
+    dispatch(login({ token, role }));
   };
 
   const logoutHandler = async () => {
@@ -29,7 +31,8 @@ export const useAuth = () => {
       });
     } catch (err) {}
     dispatch(logout());
+    navigate("/");
   };
 
-  return { isLoggedIn, token, loginHandler, logoutHandler };
+  return { token, role, loginHandler, logoutHandler };
 };
