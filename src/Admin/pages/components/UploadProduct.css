@@ -33,3 +33,24 @@
     width: 100%;
   }
 }
+
+/* @media (min-width: 600px) {
+  .modal {
+    left: calc(55% - 5rem);
+    width: 20rem;
+  }
+}
+
+@media (min-width: 652px) {
+  .modal {
+    left: calc(50% - 5rem);
+    width: 25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
+} */

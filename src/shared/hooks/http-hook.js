@@ -21,17 +21,17 @@ export const useHttpClient = () => {
           method,
           body,
           headers,
-          signal: httpAbortController.signal,
+          // signal: httpAbortController.signal,
         });
         const responseData = await response.json();
-
+                
         activeHttpRequests.current = activeHttpRequests.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortController
-        );
-
-        
-        // error 400 and 500
-        if (!response.ok || responseData.error) {
+          );
+          
+          // error 400 and 500
+          if (!response.ok || responseData.error) {
+          // console.log(responseData);
           throw new Error(responseData.error);
         }
         setIsLoading(false);
