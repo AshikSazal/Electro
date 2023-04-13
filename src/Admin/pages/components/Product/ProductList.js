@@ -4,6 +4,7 @@ import { useHttpClient } from "../../../../shared/hooks/http-hook";
 import { useAuth } from "../../../../shared/hooks/auth-hook";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import ProductItem from "./ProductItem";
+import "./ProductList.css";
 
 const ProductList = () => {
   const { token } = useAuth();
@@ -22,19 +23,45 @@ const ProductList = () => {
           }
         );
         setProduct(responseData.product);
-        console.log(responseData.product);
       } catch (err) {}
     };
     fetchProduct();
   }, [setProduct, sendRequest, token]);
 
   return (
-    <div>
+    <>
       {isLoading && <LoadingSpinner asOverlay />}
-      {product.map((prod) => (
-        <ProductItem name={prod.name} image={prod.image_name} />
-      ))}
-    </div>
+      <div className="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Quanity</th>
+              <th>Description</th>
+              <th colSpan={2}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {product.map((prod) => (
+              <ProductItem
+              key={prod.id}
+                name={prod.name}
+                image={prod.image_name}
+                brand={prod.brand}
+                category={prod.category}
+                price={prod.price}
+                quantity={prod.quantity}
+                description={prod.description}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 
