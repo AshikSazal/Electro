@@ -35,6 +35,10 @@ class ProductController extends Controller
         }catch(Exception $exp){
             return response(['error'=>$exp->getMessage()]);
         }
-        
+    }
+
+    public function fetch(){
+        $product = Product::all();
+        return response(["product"=>$product]);
     }
 }

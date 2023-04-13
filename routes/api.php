@@ -24,6 +24,7 @@ Route::middleware('check.duplication')->post('/register/{role}',[AuthController:
 Route::middleware('check.login')->post('/login',[AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout',[AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->post('/product/store',[ProductController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/product/fetch',[ProductController::class, 'fetch']);
 
 
 // Without middleware
