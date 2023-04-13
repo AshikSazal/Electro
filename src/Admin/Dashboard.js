@@ -23,7 +23,7 @@ import {
 } from "@mui/icons-material";
 import UploadProduct from "./pages/components/UploadProduct";
 import HomePage from "./pages/components/HomePage";
-import Product from "./pages/components/Product";
+import ProductList from "./pages/components/Product/ProductList";
 import Order from "./pages/components/Order";
 import Customer from "./pages/components/Customer";
 import ListItems from "./pages/ListItems";
@@ -158,10 +158,10 @@ function Dashboard(props) {
       >
         <Toolbar />
         <Routes>
-          <Route path="*" element={<Navigate replace to="/electro" />} />
+          <Route path="/*" element={<Navigate replace to="/electro" />} />
           <Route exact path="/electro" element={<HomePage />} />
           <Route path="/electro/order" element={<Order />} />
-          <Route path="/electro/product" element={<Product />} />
+          <Route path="/electro/product" element={<ProductList />} />
           <Route path="/electro/upload" element={<UploadProduct />} />
           <Route path="/electro/customer" element={<Customer />} />
         </Routes>

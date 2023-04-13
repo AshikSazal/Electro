@@ -14,12 +14,13 @@ import { useForm } from "../../../shared/hooks/form-hook";
 import ErrorModal from "../../../components/Error/ErrorModal";
 import { useHttpClient } from "../../../shared/hooks/http-hook";
 import { useAuth } from "../../../shared/hooks/auth-hook";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import "./UploadProduct.css";
 
 const UploadProduct = () => {
   const navigate = useNavigate();
   const { token } = useAuth();
-  const { error, sendRequest, clearError } = useHttpClient();
+  const {isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
       name: {
@@ -80,6 +81,7 @@ const UploadProduct = () => {
     <>
       <ErrorModal error={error} onClear={clearError} />
       <div className="upload">
+      {isLoading && <LoadingSpinner asOverlay />}
         <form onSubmit={productSubmitHandler}>
           <div className="input-upload">
             <div>

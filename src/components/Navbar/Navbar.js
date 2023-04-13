@@ -60,7 +60,7 @@ const Navbar = () => {
               <NavLink to="/cart">Cart</NavLink>
             </li>
             <li className="show-logout">
-              {role !==null ? (
+              {+role === 3 ? (
                 <>
                   <img src={sign_in} alt="" />
                   <ul className="logout">

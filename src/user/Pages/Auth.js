@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Auth.css";
 import Input from "../../shared/FormElements/Input";
@@ -12,11 +13,13 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useAuth } from "../../shared/hooks/auth-hook";
 import ErrorModal from "../../components/Error/ErrorModal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Auth = () => {
+  const navigate = useNavigate();
   const { loginHandler } = useAuth();
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const { error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: "", isValid: false },
@@ -89,66 +92,72 @@ const Auth = () => {
           formData
           // no need to add headers cos automatically it will added
         );
-        const [userToken, userPosition] = responseData.token.split("|@|");
-        loginHandler(userToken, userPosition);
+        const [userToken, role] = responseData.token.split("|@|");
+        loginHandler(userToken, role);
+        if (role === 1) {
+          navigate("/electro");
+        }
       } catch (err) {}
     }
   };
 
   return (
     <React.Fragment>
-    <ErrorModal error={error} onClear={clearError} />
-    <div className="auth">
-      <div className="auth-container">
-        <div className="top-container">
-          <div className="back-drop"></div>
-          <div className="header-container">
-            <h2 className="header-text">Welcome</h2>
-            <h2 className="header-text">back</h2>
-            <h5 className="small-text">Please {isLoginMode ? "Sign In" : "Sign Up"} to continue</h5>
+      <ErrorModal error={error} onClear={clearError} />
+      <div className="auth">
+          {isLoading && <LoadingSpinner asOverlay />}
+        <div className="auth-container">
+          <div className="top-container">
+            <div className="back-drop"></div>
+            <div className="header-container">
+              <h2 className="header-text">Welcome</h2>
+              <h2 className="header-text">back</h2>
+              <h5 className="small-text">
+                Please {isLoginMode ? "Sign In" : "Sign Up"} to continue
+              </h5>
+            </div>
           </div>
-        </div>
-        <div className="form">
-          <form onSubmit={authSubmitHandler}>
-            {!isLoginMode && (
+          <div className="form">
+            <form onSubmit={authSubmitHandler}>
+              {!isLoginMode && (
+                <Input
+                  id="name"
+                  placeholder="Name"
+                  element="input"
+                  type="text"
+                  validators={[VALIDATOR_REQUIRE()]}
+                  errorText="Please enter a name."
+                  onInput={inputHandler}
+                />
+              )}
               <Input
-                id="name"
-                placeholder="Name"
+                id="email"
+                placeholder="E-mail"
                 element="input"
-                type="text"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Please enter a name."
+                type="email"
+                validators={[VALIDATOR_EMAIL()]}
+                errorText="Please enter a valid email address."
                 onInput={inputHandler}
               />
-            )}
-            <Input
-              id="email"
-              placeholder="E-mail"
-              element="input"
-              type="email"
-              validators={[VALIDATOR_EMAIL()]}
-              errorText="Please enter a valid email address."
-              onInput={inputHandler}
-            />
-            <Input
-              id="password"
-              placeholder="Password"
-              element="input"
-              type="password"
-              validators={[VALIDATOR_MINLENGTH(6)]}
-              errorText="Please enter a valid password, at least 4 characters."
-              onInput={inputHandler}
-            />
-            <Button disabled={!formState.isValid}>
-              {isLoginMode ? "Sign In" : "Sign Up"}
+              <Input
+                id="password"
+                placeholder="Password"
+                element="input"
+                type="password"
+                validators={[VALIDATOR_MINLENGTH(6)]}
+                errorText="Please enter a valid password, at least 4 characters."
+                onInput={inputHandler}
+              />
+              <Button disabled={!formState.isValid}>
+                {isLoginMode ? "Sign In" : "Sign Up"}
+              </Button>
+            </form>
+            <Button inverse onClick={switchModeHandler}>
+              Click here to {isLoginMode ? "Sign Up" : "Sign In"}
             </Button>
-          </form>
-          <Button inverse onClick={switchModeHandler}>
-            Click here to {isLoginMode ? "Sign Up" : "Sign In"}
-          </Button>
+          </div>
         </div>
       </div>
-    </div>
     </React.Fragment>
   );
 };
