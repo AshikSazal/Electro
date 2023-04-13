@@ -32,7 +32,7 @@ const ProductList = () => {
     <div>
       {isLoading && <LoadingSpinner asOverlay />}
       {product.map((prod) => (
-        <ProductItem name={prod.name} />
+        <ProductItem name={prod.name} image={prod.image_name} />
       ))}
     </div>
   );

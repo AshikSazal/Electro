@@ -75,7 +75,7 @@ const UploadProduct = () => {
         }
       );
     } catch (err) {}
-    navigate("/electro/product");
+    // navigate("/electro/product");
   };
   return (
     <>
