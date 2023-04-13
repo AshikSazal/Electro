@@ -21,15 +21,15 @@ class ProductController extends Controller
             ]);
             $imageFile = $req->file('image');
             $imageName = date('YmdHis') . '.' . $imageFile->getClientOriginalExtension();
-            $path = $imageFile->storeAs('public/images', $imageName);
-            $product = Product::create([
+            $imageFile->move('images/', $imageName);
+            Product::create([
                 'name'=> $req->input('name'),
                 'brand'=> $req->input('brand'),
                 'category'=> $req->input('category'),
                 'price'=> $req->input('price'),
                 'quantity'=> $req->input('quantity'),
                 'description'=> $req->input('description'),
-                'image_path'=> $path
+                'image_name'=> $imageName
             ]);
             return response()->json(['upload' => "Image upload done"], 200);
         }catch(Exception $exp){

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->float('price');
             $table->integer('quantity');
             $table->text('description');
-            $table->string('image_path');
+            $table->string('image_name');
         });
     }
 
