@@ -6,14 +6,14 @@ import "./Button.css";
 const Button = (props) => {
   if (props.to) {
     return (
-      <Link to={props.to} exact={props.exact} className="button">
+      <Link to={props.to} exact={props.exact} className={`button ${props.class}`}>
         {props.children}
       </Link>
     );
   }
   return (
     <button
-      className={`button ${props.style} ${props.inverse && "button--inverse"}`}
+      className={`button ${props.style} ${props.inverse && "button--inverse"} ${props.class}`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}

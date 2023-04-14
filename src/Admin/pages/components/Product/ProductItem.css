@@ -35,14 +35,12 @@ td:nth-child(6){
 td:nth-child(8){
   height: 2rem;
   width: 2rem;
-  color: #18659d;
 }
 td:nth-child(9){
   height: 2rem;
   width: 2rem;
   color: red;
 }
-
 /* td:nth-child(7){
   text-align: right;
   margin: auto;
@@ -65,4 +63,21 @@ tr{
   align-self: center;
   height: auto;
   width: auto;
+}
+
+.edit, .delete{
+  background-color: transparent;
+  padding: 0;
+}
+
+.delete{
+  color: red;
+}
+
+.edit{
+  color: #18659d;
+}
+
+.edit:hover, .delete:hover{
+  background-color: transparent;
 }

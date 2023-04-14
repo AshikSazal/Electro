@@ -20,7 +20,7 @@ const ProductList = () => {
           "GET",
           null,
           {
-            Authorization: "Bearer " + token+"|@|"+role,
+            Authorization: "Bearer " + token + "|@|" + role,
           }
         );
         setProduct(responseData.product);
@@ -29,10 +29,14 @@ const ProductList = () => {
     fetchProduct();
   }, [setProduct, sendRequest, token, role]);
 
+  const productDeletedHandler = (deletedProductId) => {
+    setProduct(prevProducts => prevProducts.filter(prod => prod.id !== deletedProductId));
+  };
+
   return (
     <>
-    <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
+      <ErrorModal error={error} onClear={clearError} />
       <div className="table">
         <table>
           <thead>
@@ -50,7 +54,8 @@ const ProductList = () => {
           <tbody>
             {product.map((prod) => (
               <ProductItem
-              key={prod.id}
+                key={prod.id}
+                id={prod.id}
                 name={prod.name}
                 image={prod.image_name}
                 brand={prod.brand}
@@ -58,6 +63,7 @@ const ProductList = () => {
                 price={prod.price}
                 quantity={prod.quantity}
                 description={prod.description}
+                onDelete={productDeletedHandler}
               />
             ))}
           </tbody>
