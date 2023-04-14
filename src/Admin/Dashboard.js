@@ -25,7 +25,7 @@ import UploadProduct from "./pages/components/UploadProduct";
 import HomePage from "./pages/components/HomePage";
 import ProductList from "./pages/components/Product/ProductList";
 import Order from "./pages/components/Order";
-import Customer from "./pages/components/Customer";
+import Customer from "./pages/components/Customer/Customer";
 import ListItems from "./pages/ListItems";
 import { useAuth } from "../shared/hooks/auth-hook";
 
