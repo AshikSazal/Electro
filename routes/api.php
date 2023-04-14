@@ -22,9 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('check.duplication')->post('/register/{role}',[AuthController::class, 'register']);
 Route::middleware('check.login')->post('/login',[AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/logout',[AuthController::class, 'logout']);
-Route::middleware('auth:sanctum')->post('/product/store',[ProductController::class, 'store']);
-Route::middleware('auth:sanctum')->get('/product/fetch',[ProductController::class, 'fetch']);
+Route::middleware('check.authentication')->post('/product/store',[ProductController::class, 'store']);
+Route::middleware('check.authentication')->get('/product/fetch',[ProductController::class, 'fetch']);
+Route::middleware('check.authentication')->get('/check_auth',[AuthController::class, 'check']);
+Route::middleware('check.authentication')->post('/logout',[AuthController::class, 'logout']);
 
 
 // Without middleware

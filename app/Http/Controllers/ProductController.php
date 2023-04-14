@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function store(Request $req){
-        try{
+    public function store(Request $req)
+    {
+
+        try {
+            $role = (int) $req->attributes->get('role');
+            if ($role !== 1) {
+                throw new Exception("You are not allowed do that");
+            }
             $req->validate([
                 'name' => 'required|string|max:255',
                 'brand' => 'required|string|max:255',
@@ -23,22 +29,23 @@ class ProductController extends Controller
             $imageName = date('YmdHis') . '.' . $imageFile->getClientOriginalExtension();
             $imageFile->move('images/', $imageName);
             Product::create([
-                'name'=> $req->input('name'),
-                'brand'=> $req->input('brand'),
-                'category'=> $req->input('category'),
-                'price'=> $req->input('price'),
-                'quantity'=> $req->input('quantity'),
-                'description'=> $req->input('description'),
-                'image_name'=> $imageName
+                'name' => $req->input('name'),
+                'brand' => $req->input('brand'),
+                'category' => $req->input('category'),
+                'price' => $req->input('price'),
+                'quantity' => $req->input('quantity'),
+                'description' => $req->input('description'),
+                'image_name' => $imageName,
             ]);
             return response()->json(['upload' => "Image upload done"], 200);
-        }catch(Exception $exp){
-            return response(['error'=>$exp->getMessage()]);
+        } catch (Exception $exp) {
+            return response(['error' => $exp->getMessage()]);
         }
     }
 
-    public function fetch(){
+    public function fetch()
+    {
         $product = Product::all();
-        return response(["product"=>$product]);
+        return response(["product" => $product]);
     }
 }
