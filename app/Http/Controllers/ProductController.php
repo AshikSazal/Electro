@@ -37,7 +37,7 @@ class ProductController extends Controller
                 'description' => $req->input('description'),
                 'image_name' => $imageName,
             ]);
-            return response()->json(['upload' => "Image upload done"], 200);
+            return response()->json(['message' => "Image upload done"], 200);
         } catch (Exception $exp) {
             return response(['error' => $exp->getMessage()]);
         }
@@ -47,5 +47,20 @@ class ProductController extends Controller
     {
         $product = Product::all();
         return response(["product" => $product]);
+    }
+
+    public function delete($id)
+    {
+        try {
+            $product = Product::find($id);
+            $image_path = public_path('images/' . $product->image_name);
+            $product->delete();
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+            return response(["error" => "Delete successfully"]);
+        } catch (Exception $exp) {
+            return response(['error' => $exp->getMessage()]);
+        }
     }
 }

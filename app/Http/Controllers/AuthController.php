@@ -64,11 +64,4 @@ class AuthController extends Controller
         $user->api_token = null;
         $user->save();
     }
-
-    public function check()
-    {
-        // $customHeaderValue = $request->attributes->get('myCustomAttribute');
-        // return $customHeaderValue;
-        return Auth::user();
-    }
 }
