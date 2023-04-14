@@ -19,7 +19,7 @@ import "./UploadProduct.css";
 
 const UploadProduct = () => {
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const { token, role } = useAuth();
   const {isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
@@ -71,11 +71,11 @@ const UploadProduct = () => {
         "POST",
         formData,
         {
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + token +"|@|"+role,
         }
       );
     } catch (err) {}
-    // navigate("/electro/product");
+    navigate("/electro/product");
   };
   return (
     <>

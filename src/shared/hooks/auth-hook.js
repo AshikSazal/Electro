@@ -27,7 +27,7 @@ export const useAuth = () => {
   const logoutHandler = async () => {
     try {
       await sendRequest("http://127.0.0.1:8000/api/logout", "POST",null, {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + token+"|@|"+role,
       });
     } catch (err) {}
     dispatch(logout());

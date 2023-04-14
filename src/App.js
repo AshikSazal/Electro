@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
@@ -48,6 +48,7 @@ const App = () => {
             path="/product/:productcategory/:id"
             element={<ProductItem />}
           />
+            <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
           <Route path="*" element={<ErrorModal />} />
         </Routes>
         <Footer />

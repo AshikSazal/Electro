@@ -4,10 +4,11 @@ import { useHttpClient } from "../../../../shared/hooks/http-hook";
 import { useAuth } from "../../../../shared/hooks/auth-hook";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import ProductItem from "./ProductItem";
+import ErrorModal from "../../../../components/Error/ErrorModal";
 import "./ProductList.css";
 
 const ProductList = () => {
-  const { token } = useAuth();
+  const { token, role } = useAuth();
   const [product, setProduct] = useState([]);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -19,17 +20,18 @@ const ProductList = () => {
           "GET",
           null,
           {
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer " + token+"|@|"+role,
           }
         );
         setProduct(responseData.product);
       } catch (err) {}
     };
     fetchProduct();
-  }, [setProduct, sendRequest, token]);
+  }, [setProduct, sendRequest, token, role]);
 
   return (
     <>
+    <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
       <div className="table">
         <table>

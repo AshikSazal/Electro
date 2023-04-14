@@ -5,3 +5,11 @@
 table{
   border-collapse: collapse;
 }
+
+thead{
+  background-color: #22a4f1;
+  color: white;
+}
+thead tr th{
+  padding: 20px;
+}
