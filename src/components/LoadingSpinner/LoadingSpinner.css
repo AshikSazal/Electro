@@ -5,7 +5,7 @@
 }
 
 .lds-dual-ring:after {
-  content: ' ';
+  content: " ";
   display: block;
   width: 46px;
   height: 46px;
@@ -29,12 +29,12 @@
 }
 
 @media (max-width: 900px) {
-  .loading-spinner__overlay{
+  .loading-spinner__overlay {
     display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30%;
-  } 
+    justify-content: center;
+    align-items: center;
+    margin-top: 30%;
+  }
 }
 @keyframes lds-dual-ring {
   0% {
