@@ -12,8 +12,8 @@ import ErrorModal from "../Error/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const Navbar = () => {
-  const { token, role, logoutHandler } = useAuth();
   const [showNavbar, setShowNavbar] = useState(false);
+  const { token, role, logoutHandler } = useAuth();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const handleShowNavbar = () => {
@@ -25,7 +25,7 @@ const Navbar = () => {
     }
   };
 
-  const loggedOut = async () => {
+  const authLogoutHandler = async () => {
     try {
       await sendRequest("http://127.0.0.1:8000/api/logout", "POST", null, {
         Authorization: "Bearer " + token + "|@|" + role,
@@ -84,7 +84,7 @@ const Navbar = () => {
                     <img src={sign_in} alt="" />
                     <ul className="logout">
                       <li>
-                        <button className="btn" onClick={loggedOut}>
+                        <button className="btn" onClick={authLogoutHandler}>
                           Log out
                         </button>
                       </li>

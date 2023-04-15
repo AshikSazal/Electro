@@ -19,7 +19,7 @@ import {
   Menu,
   Inventory2,
   PermIdentity,
-  Logout
+  Logout,
 } from "@mui/icons-material";
 import UploadProduct from "./pages/components/UploadProduct";
 import HomePage from "./pages/components/HomePage";
@@ -28,11 +28,15 @@ import Order from "./pages/components/Order";
 import Customer from "./pages/components/Customer/Customer";
 import ListItems from "./pages/ListItems";
 import { useAuth } from "../shared/hooks/auth-hook";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import ErrorModal from "../components/Error/ErrorModal";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
-  const { logoutHandler } = useAuth();
+  const { token, role, logoutHandler } = useAuth();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -42,8 +46,18 @@ function Dashboard(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const authLogoutHandler = async () => {
+    try {
+      await sendRequest("http://127.0.0.1:8000/api/logout", "POST", null, {
+        Authorization: "Bearer " + token + "|@|" + role,
+      });
+    } catch (err) {}
+    logoutHandler();
+  };
+
   const drawer = (
     <div>
+      <ErrorModal error={error} onClear={clearError} />
       <Toolbar />
       <Divider />
       <List>
@@ -74,7 +88,7 @@ function Dashboard(props) {
         />
         <ListItems
           icon={<Logout />}
-          onClick={logoutHandler}
+          onClick={authLogoutHandler}
           text="Logout"
         />
       </List>
@@ -109,6 +123,7 @@ function Dashboard(props) {
             Electro
           </Typography>
         </Toolbar>
+        {isLoading && <LoadingSpinner asOverlay />}
       </AppBar>
       <Box
         component="nav"
