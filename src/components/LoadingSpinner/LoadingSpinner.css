@@ -28,7 +28,7 @@
   align-items: center;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .loading-spinner__overlay{
     display: flex;
   justify-content: center;
