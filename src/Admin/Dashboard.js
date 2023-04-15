@@ -123,8 +123,8 @@ function Dashboard(props) {
             Electro
           </Typography>
         </Toolbar>
-        {isLoading && <LoadingSpinner asOverlay />}
       </AppBar>
+        {isLoading && <LoadingSpinner asOverlay />}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}

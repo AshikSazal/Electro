@@ -48,7 +48,7 @@ const Navbar = () => {
           <div className="menu-icon" onClick={handleShowNavbar}>
             <img src={menu} alt="" />
           </div>
-          <div className={`nav-elements  ${showNavbar && "active"}`}>
+          <div className={`nav-elements  ${showNavbar && "active"}`} onClick={handleShowNavbar}>
             <ul>
               <li>
                 <NavLink to="/">Home</NavLink>
