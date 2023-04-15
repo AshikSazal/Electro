@@ -72,6 +72,11 @@ body {
   background-color: #f1c40f;
 }
 
+/* Cart quantity */
+.nav-elements li:nth-child(5) a:hover{
+  text-decoration: none;
+}
+
 /* Hover list */
 .nav-elements ul li .list {
   display: none;
