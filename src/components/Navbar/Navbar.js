@@ -5,6 +5,7 @@ import { useAuth } from "../../shared/hooks/auth-hook";
 import menu from "../../icons/menu.png";
 import logo from "../../icons/logo.png";
 import sign_in from "../../icons/sign_in.png";
+import HeaderCart from "../HeaderCart/HeaderCart";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -57,7 +58,9 @@ const Navbar = () => {
               <NavLink to="/contact">Contact</NavLink>
             </li>
             <li>
-              <NavLink to="/cart">Cart</NavLink>
+              <NavLink to="/cart">
+                <HeaderCart />
+              </NavLink>
             </li>
             <li className="show-logout">
               {+role === 3 ? (
