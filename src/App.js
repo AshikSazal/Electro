@@ -13,6 +13,7 @@ import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
 import Auth from "./user/Pages/Auth";
 import ProductItem from "./product/ProductItem";
+import Cart from "./pages/Cart/Cart";
 import { useAuth } from "./shared/hooks/auth-hook";
 // Admin section
 import Dashboard from "./Admin/Dashboard";
@@ -48,7 +49,8 @@ const App = () => {
             path="/product/:productcategory/:id"
             element={<ProductItem />}
           />
-            <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
           <Route path="*" element={<ErrorModal />} />
         </Routes>
         <Footer />

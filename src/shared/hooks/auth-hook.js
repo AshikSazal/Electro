@@ -9,7 +9,7 @@ export const useAuth = () => {
   const dispatch = useDispatch();
   const { sendRequest } = useHttpClient();
 
-  const { token, role } = useSelector((state) => state.user);
+  const { isLoggedIn, token, role } = useSelector((state) => state.user);
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
@@ -34,5 +34,5 @@ export const useAuth = () => {
     navigate("/");
   };
 
-  return { token, role, loginHandler, logoutHandler };
+  return { isLoggedIn, token, role, loginHandler, logoutHandler };
 };

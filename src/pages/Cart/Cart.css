@@ -1,0 +1,14 @@
+.login-first__container{
+    height: 62vh;
+}
+.login-first__p{
+    color: black;
+}
+
+.login-first__button{
+    background-color: #111d4a;
+}
+
+.login-first__button:hover{
+    background-color: #f1c40f;
+}
