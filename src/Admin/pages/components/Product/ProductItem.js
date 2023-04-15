@@ -57,7 +57,7 @@ const ProductItem = (props) => {
         }
       >
         <p>
-          Do you want to proceed and delete this place? Please note that is
+          Do you want to proceed and delete this product? Please note that is
           can't be undone there after
         </p>
       </Modal>

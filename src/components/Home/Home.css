@@ -1,4 +1,7 @@
 /* Front Image */
+.home{
+    margin-top: 60px;
+}
 .front-image{
     width: 100%;
     background-color: #f1c40f;

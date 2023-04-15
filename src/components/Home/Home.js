@@ -9,7 +9,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <>
+    <div className="home">
       <div className="front-image">
         <div>
           <img src={front_page} alt="" />
@@ -38,7 +38,7 @@ const Home = () => {
 
       <MultiCarousel />
       <Facility />      
-    </>
+    </div>
   );
 };
 

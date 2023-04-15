@@ -10,7 +10,11 @@ body {
 .navbar {
   height: 60px;
   background-color: #111d4a;
-  position: relative;
+  position: fixed;
+  width: 100%;
+  /* overflow: hidden; */
+  top: 0;
+  z-index: 10;
 }
 
 .container {

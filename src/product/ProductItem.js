@@ -1,10 +1,25 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import Button from "../shared/FormElements/Button";
 import Card from "../components/Card/Card";
+import { addItemToCart } from "../store/cartSlice";
 import "./ProductItem.css";
 
 const ProductItem = (props) => {
+  const dispatch = useDispatch();
+
+  const { id, category, price } = props.item;
+
+  const addItemHandler = () => {
+    dispatch(
+      addItemToCart({
+        id,
+        price,
+      })
+    );
+  };
+
   return (
     <Card>
       <div className="hov">
@@ -15,7 +30,7 @@ const ProductItem = (props) => {
             </Button>
           </p>
           <p>
-            <Button>Add to Cart</Button>
+            <Button onClick={addItemHandler}>Add to Cart</Button>
           </p>
         </div>
         <div key={props.item.id}>

@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <>
+    <div>
       <ErrorModal error={error} onClear={clearError} />
       <nav className="navbar">
         <div className="container">
@@ -98,7 +98,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 };
 
