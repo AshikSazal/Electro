@@ -63,5 +63,6 @@ class AuthController extends Controller
         $user  = User::where('api_token',$token)->first();
         $user->api_token = null;
         $user->save();
+        return response(["message"=>"Logged out"]);
     }
 }

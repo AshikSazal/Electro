@@ -27,7 +27,9 @@ class CheckAuthentication
             if (!$user) {
                 throw new Exception("Unauthenticated");
             }
+            $user = User::where('api_token', $token)->where('role', $role)->first();
             $request->attributes->set('role', $role);
+            $request->attributes->set('user_id', $user->id);
         } catch (Exception $exp) {
             return response([
                 "error" => $exp->getMessage(),

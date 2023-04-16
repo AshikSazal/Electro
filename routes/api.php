@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('check.duplication')->post('/register/{role}',[AuthController::class, 'register']);
 Route::middleware('check.login')->post('/login',[AuthController::class, 'login']);
+Route::middleware('check.authentication')->post('/logout',[AuthController::class, 'logout']);
+
 Route::middleware('check.authentication')->post('/product/store',[ProductController::class, 'store']);
 Route::middleware('check.authentication')->get('/product/fetch',[ProductController::class, 'fetch']);
 Route::middleware('check.authentication')->delete('/product/delete/{id}',[ProductController::class, 'delete']);
-Route::middleware('check.authentication')->post('/logout',[AuthController::class, 'logout']);
+
+Route::middleware('check.authentication')->post('/user/cart/store',[CartController::class, 'storeCartPrduct']);
+Route::get('/user/cart/fetch',[CartController::class, 'fetchCartPrduct']);
+
 
 
 // Without middleware
