@@ -90,7 +90,6 @@ const Auth = () => {
           "http://127.0.0.1:8000/api/register/3",
           "POST",
           formData
-          // no need to add headers cos automatically it will added
         );
         const [userToken, role] = responseData.token.split("|@|");
         loginHandler(userToken, role);

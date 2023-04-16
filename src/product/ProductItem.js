@@ -7,13 +7,17 @@ import Card from "../components/Card/Card";
 import { addItemToCart } from "../store/cartSlice";
 import Modal from "../components/Error/Modal";
 import { useAuth } from "../shared/hooks/auth-hook";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import ErrorModal from "../components/Error/ErrorModal";
 import "./ProductItem.css";
 
 const ProductItem = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, token, role } = useAuth();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -24,19 +28,29 @@ const ProductItem = (props) => {
     navigate("/auth");
   };
 
-  const { id, category, price } = props.item;
+  const { id, price } = props.item;
 
-  const addItemHandler = () => {
-    dispatch(
-      addItemToCart({
-        id,
-        price,
-      })
+  const addItemHandler = async () => {
+    const formData = new FormData();
+    formData.append("id",id);
+    formData.append("price",price);
+    console.log(formData)
+    await sendRequest(
+      "http://127.0.0.1:8000/api/user/cart/store",
+      "POST",
+      formData,
+      {
+        Authorization: "Bearer " + token +"|@|"+role,
+      }
     );
+    dispatch(addItemToCart({
+      id, price
+    }))
   };
 
   return (
     <>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
