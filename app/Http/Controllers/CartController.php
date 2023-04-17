@@ -48,7 +48,7 @@ class CartController extends Controller
             $user = User::findOrfail($userId);
             if ($user->cartItem()->exists()) {
                 $cart = json_decode($user->cartItem->products);
-                return count($cart);
+                return ["cart"=>$cart];
             }
             throw new Exception("You don't have any product in the cart");
         } catch (Exception $exp) {
