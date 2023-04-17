@@ -28,9 +28,10 @@ Route::middleware('check.authentication')->post('/logout',[AuthController::class
 Route::middleware('check.authentication')->post('/product/store',[ProductController::class, 'store']);
 Route::middleware('check.authentication')->get('/product/fetch',[ProductController::class, 'fetch']);
 Route::middleware('check.authentication')->delete('/product/delete/{id}',[ProductController::class, 'delete']);
+Route::get('/product/fetch/all',[ProductController::class, 'fetch']);
 
 Route::middleware('check.authentication')->post('/user/cart/store',[CartController::class, 'storeCartPrduct']);
-Route::get('/user/cart/fetch',[CartController::class, 'fetchCartPrduct']);
+Route::middleware('check.authentication')->get('/user/cart/fetch',[CartController::class, 'fetchCartPrduct']);
 
 
 

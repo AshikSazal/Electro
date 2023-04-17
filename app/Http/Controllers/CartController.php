@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -42,7 +43,18 @@ class CartController extends Controller
     }
     public function fetchCartPrduct()
     {
-        $cart = Cart::all();
-        return ["error" => $cart];
+        try {
+            $userId = request()->attributes->get('user_id');
+            $user = User::findOrfail($userId);
+            if ($user->cartItem()->exists()) {
+                $cart = json_decode($user->cartItem->products);
+                return count($cart);
+            }
+            throw new Exception("You don't have any product in the cart");
+        } catch (Exception $exp) {
+            return response()->json([
+                'error' => $exp->getMessage(),
+            ]);
+        }
     }
 }
