@@ -39,7 +39,6 @@ const Navbar = () => {
       <ErrorModal error={error} onClear={clearError} />
       <nav className="navbar">
         <div className="container">
-          {isLoading && <LoadingSpinner asOverlay />}
           <div className="logo">
             <NavLink to="/">
               <img src={logo} alt="" />
@@ -48,11 +47,15 @@ const Navbar = () => {
           <div className="menu-icon" onClick={handleShowNavbar}>
             <img src={menu} alt="" />
           </div>
-          <div className={`nav-elements  ${showNavbar && "active"}`} onClick={showNavbar ? handleShowNavbar : null}>
+          <div
+            className={`nav-elements  ${showNavbar && "active"}`}
+            onClick={showNavbar ? handleShowNavbar : null}
+          >
             <ul>
               <li>
                 <NavLink to="/">Home</NavLink>
               </li>
+              {isLoading && <LoadingSpinner asOverlay />}
               <li className="show-category">
                 <NavLink to="/product">Product</NavLink>
                 <ul className="list">

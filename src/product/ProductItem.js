@@ -16,8 +16,7 @@ const ProductItem = (props) => {
   const dispatch = useDispatch();
   const { isLoggedIn, token, role } = useAuth();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
+  const { error, sendRequest, clearError } = useHttpClient();
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -32,20 +31,22 @@ const ProductItem = (props) => {
 
   const addItemHandler = async () => {
     const formData = new FormData();
-    formData.append("id",id);
-    formData.append("price",price);
-    console.log(formData)
+    formData.append("id", id);
+    formData.append("price", price);
     await sendRequest(
       "http://127.0.0.1:8000/api/user/cart/store",
       "POST",
       formData,
       {
-        Authorization: "Bearer " + token +"|@|"+role,
+        Authorization: "Bearer " + token + "|@|" + role,
       }
     );
-    dispatch(addItemToCart({
-      id, price
-    }))
+    dispatch(
+      addItemToCart({
+        id,
+        price,
+      })
+    );
   };
 
   return (
@@ -64,9 +65,7 @@ const ProductItem = (props) => {
           </React.Fragment>
         }
       >
-        <p className="log-in">
-          Please Login first
-        </p>
+        <p className="log-in">Please Login first</p>
       </Modal>
       <Card>
         <div className="hov">
@@ -85,8 +84,12 @@ const ProductItem = (props) => {
             </p>
           </div>
           <div key={props.item.id}>
-            <img className="product--image" src={props.item.imageurl} alt="" />
-            <h2>{props.item.name}</h2>
+            <img
+              className="product--image"
+              src={`http://127.0.0.1:8000/images/${props.item.image_name}`}
+              alt={props.name}
+            />
+            <h2>{props.item.image}</h2>
             <p className="price">{props.item.price}</p>
           </div>
         </div>
