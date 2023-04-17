@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 // Customer section
@@ -17,14 +18,44 @@ import Cart from "./pages/Cart/Cart";
 import { useAuth } from "./shared/hooks/auth-hook";
 // Admin section
 import Dashboard from "./Admin/Dashboard";
+import { useHttpClient } from "./shared/hooks/http-hook";
+import { replaceCart } from "./store/cartSlice";
 
 const App = () => {
-  const { role } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { sendRequest } = useHttpClient();
+  const { token, role } = useAuth();
 
   useEffect(() => {
+    if (!token || !role) {
+      dispatch(replaceCart({ items: [], totalQuantity: 0 }));
+    }
     setIsLoading(false);
-  }, [role]);
+  }, [dispatch, token, role]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://127.0.0.1:8000/api/user/cart/fetch",
+          "GET",
+          null,
+          {
+            Authorization: "Bearer " + token + "|@|" + role,
+          }
+        );
+        dispatch(
+          replaceCart({
+            items: responseData.cart.items || [],
+            totalQuantity: Object.values(responseData.cart).length,
+          })
+        );
+      } catch (err) {}
+    };
+    fetchCart();
+  }, [sendRequest, token, role, dispatch]);
+
   let routes;
   if (isLoading) {
     return <LoadingSpinner asOverlay />;

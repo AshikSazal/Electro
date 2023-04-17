@@ -6,6 +6,7 @@ import "./HeaderCart.css";
 
 const HeaderCart = () => {
   const cartQuantity = useSelector((state) => state.cart.totalQuantity);
+
   return (
     <div className="cart-container">
       <span className="icon">
