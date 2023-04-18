@@ -81,7 +81,7 @@ const App = () => {
             path="/product/:productcategory/:id"
             element={<ProductItem />}
           />
-          <Route path="/product" element={<ProductList />} />
+          <Route path="/product/:category" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
           <Route path="*" element={<ErrorModal />} />

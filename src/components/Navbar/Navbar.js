@@ -54,10 +54,10 @@ const Navbar = () => {
                 <NavLink to="/">Home</NavLink>
               </li>
               <li className="show-category">
-                <NavLink to="/product">Product</NavLink>
+                <NavLink to="/product/all">Product</NavLink>
                 <ul className="list">
                   <li>
-                    <NavLink to="/product/tv">Television</NavLink>
+                    <NavLink to="/product/television">Television</NavLink>
                   </li>
                   <li>
                     <NavLink to="/product/mobile">Mobile</NavLink>
