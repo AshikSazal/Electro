@@ -43,9 +43,16 @@ class ProductController extends Controller
         }
     }
 
-    public function fetch()
+    public function fetch($category)
     {
-        $product = Product::all();
+        // global $product;
+        if($category === 'all'){
+            $product = Product::all();
+        }else{
+            $cate = ucfirst($category);
+            // return $cate;
+            $product = Product::where('category',$cate)->get();
+        }
         return response(["product" => $product]);
     }
 
