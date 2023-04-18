@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { useHttpClient } from "../../../../shared/hooks/http-hook";
 import { useAuth } from "../../../../shared/hooks/auth-hook";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
-import ProductItem from "./ProductItem";
+import AdminProductItem from "./AdminProductItem";
 import ErrorModal from "../../../../components/Error/ErrorModal";
-import "./ProductList.css";
+import "./AdminProductList.css";
 
-const ProductList = () => {
+const AdminProductList = () => {
   const { token, role } = useAuth();
   const [product, setProduct] = useState([]);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -53,7 +53,7 @@ const ProductList = () => {
           </thead>
           <tbody>
             {product.map((prod) => (
-              <ProductItem
+              <AdminProductItem
                 key={prod.id}
                 id={prod.id}
                 name={prod.name}
@@ -73,4 +73,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default AdminProductList;

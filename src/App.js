@@ -13,6 +13,7 @@ import Service from "./pages/FooterPages/Service/Service";
 import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
 import Auth from "./user/Pages/Auth";
+import ProductList from "./product/ProductList";
 import ProductItem from "./product/ProductItem";
 import Cart from "./pages/Cart/Cart";
 import { useAuth } from "./shared/hooks/auth-hook";
@@ -80,6 +81,7 @@ const App = () => {
             path="/product/:productcategory/:id"
             element={<ProductItem />}
           />
+          <Route path="/product" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
           <Route path="*" element={<ErrorModal />} />

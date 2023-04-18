@@ -7,9 +7,9 @@ import Modal from "../../../../components/Error/Modal";
 import ErrorModal from "../../../../components/Error/ErrorModal";
 import { useHttpClient } from "../../../../shared/hooks/http-hook";
 import { useAuth } from "../../../../shared/hooks/auth-hook";
-import "./ProductItem.css";
+import "./AdminProductItem.css";
 
-const ProductItem = (props) => {
+const AdminProductItem = (props) => {
   const { token, role } = useAuth();
   const { error, sendRequest, clearError } = useHttpClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -91,4 +91,4 @@ const ProductItem = (props) => {
   );
 };
 
-export default ProductItem;
+export default AdminProductItem;
