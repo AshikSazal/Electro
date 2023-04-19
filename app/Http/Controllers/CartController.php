@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class CartController extends Controller
 {
     public function storeCartPrduct(Request $req)
     {
-        $newProducts = ['prod_id' => $req->input('id'), 'price' => $req->input('price'), "quantity" => 1];
+        $newProducts = ['prod_id' => (int) $req->input('id'), 'price' => $req->input('price'), "quantity" => (int) $req->input('quantity')];
         $userId = $req->attributes->get('user_id');
         $user = User::findOrfail($userId);
         // Any cart item exist for a user
@@ -25,7 +26,7 @@ class CartController extends Controller
             $flag = 0;
             $products = json_decode($user->cartItem->products);
             foreach ($products as $prod) {
-                if ($prod->prod_id === $req->input('id')) {
+                if ($prod->prod_id === (int) $req->input('id')) {
                     $prod->quantity = $prod->quantity + 1;
                     $prod->price = $prod->quantity * $req->input('price');
                     $flag = 1;
@@ -47,8 +48,32 @@ class CartController extends Controller
             $userId = request()->attributes->get('user_id');
             $user = User::findOrfail($userId);
             if ($user->cartItem()->exists()) {
-                $cart = json_decode($user->cartItem->products);
-                return ["cart"=>$cart];
+                $carts = json_decode($user->cartItem->products);
+                $prodIds = [];
+                foreach ($carts as $cart) {
+                    $prodIds[] = $cart->prod_id;
+                }
+                $products = Product::whereIn('id', $prodIds)->get();
+                $cartData = [];
+                foreach ($carts as $cart) {
+                    $product = $products->where('id', $cart->prod_id)->first();
+                    $cartData[] = [
+                        'cart' => $cart,
+                        'product' => $product,
+                    ];
+                }
+                // foreach($cartData as $data){
+                //     foreach($data as $item){
+                //         echo $item->prod_id;
+                //     }
+                // }
+                // foreach($cartData as $data){
+                //     echo $data[0]->cart->prod_id;
+                //     foreach($data as $item){
+                //         echo $item->prod_id;
+                //     }
+                // }
+                return ["cartData" => $cartData];
             }
             throw new Exception("You don't have any product in the cart");
         } catch (Exception $exp) {
