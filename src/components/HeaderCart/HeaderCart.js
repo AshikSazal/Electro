@@ -8,7 +8,7 @@ const HeaderCart = () => {
   const cartQuantity = useSelector((state) => state.cart.totalQuantity);
 
   return (
-    <div className="cart-container">
+    <div className="header-cart">
       <span className="icon">
         <CartIcon />
       </span>

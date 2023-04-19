@@ -1,0 +1,33 @@
+.cart-product {
+  display: flex;
+  flex-direction: row;
+  margin-top: 60px;
+  width: 100%;
+  margin-bottom: 5rem;
+  justify-content: space-between;
+}
+
+.cart-list {
+  width: 60%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.check-out {
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+    .cart-product {
+        display: flex;
+        flex-direction: column;
+        margin-top: 60px;
+        width: 100%;
+        margin-bottom: 5rem;
+      }
+  }

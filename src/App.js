@@ -16,6 +16,7 @@ import Auth from "./user/Pages/Auth";
 import ProductList from "./product/ProductList";
 import ProductItem from "./product/ProductItem";
 import Cart from "./pages/Cart/Cart";
+import CartList from "./product/Cart/CartList";
 import { useAuth } from "./shared/hooks/auth-hook";
 // Admin section
 import Dashboard from "./Admin/Dashboard";
@@ -46,10 +47,13 @@ const App = () => {
             Authorization: "Bearer " + token + "|@|" + role,
           }
         );
+
+        const totalQuantity = responseData.cartData.reduce((total, item) => total + item.cart.quantity, 0);
+
         dispatch(
           replaceCart({
-            items: responseData.cart.items || [],
-            totalQuantity: Object.values(responseData.cart).length,
+            items: responseData.cartData || [],
+            totalQuantity: totalQuantity,
           })
         );
       } catch (err) {}
@@ -82,6 +86,7 @@ const App = () => {
             element={<ProductItem />}
           />
           <Route path="/product/:category" element={<ProductList />} />
+          <Route path="/product/cart" element={<CartList />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
           <Route path="*" element={<ErrorModal />} />

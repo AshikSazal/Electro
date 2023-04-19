@@ -77,12 +77,12 @@ const AdminProductItem = (props) => {
           <div>{props.description}</div>
         </td>
         <td>
-          <Button class="edit" edit to={`/places/${props.id}`}>
+          <Button className="edit" edit to={`/places/${props.id}`}>
             <EditIcon />
           </Button>
         </td>
         <td>
-          <Button class="delete" danger onClick={showDeleteWarningHandler}>
+          <Button className="delete" danger onClick={showDeleteWarningHandler}>
             <DeleteForeverSharpIcon />
           </Button>
         </td>
