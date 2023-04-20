@@ -12,7 +12,7 @@ class CartController extends Controller
 {
     public function storeCartPrduct(Request $req)
     {
-        $newProducts = ['prod_id' => (int) $req->input('id'), 'price' => $req->input('price'), "quantity" => (int) $req->input('quantity')];
+        $newProducts = ['prod_id' => (int) $req->input('id'), 'price' => (float)$req->input('price'), "quantity" => (int) $req->input('quantity')];
         $userId = $req->attributes->get('user_id');
         $user = User::findOrfail($userId);
         // Any cart item exist for a user
@@ -40,7 +40,9 @@ class CartController extends Controller
             $user->cartItem->save();
 
         }
-        return ["message" => "done"];
+        $cartData = $this->fetchCartPrduct();
+        $cartData = $cartData["cartData"];
+        return ["cartData" => $cartData];
     }
     public function fetchCartPrduct()
     {
@@ -62,17 +64,6 @@ class CartController extends Controller
                         'product' => $product,
                     ];
                 }
-                // foreach($cartData as $data){
-                //     foreach($data as $item){
-                //         echo $item->prod_id;
-                //     }
-                // }
-                // foreach($cartData as $data){
-                //     echo $data[0]->cart->prod_id;
-                //     foreach($data as $item){
-                //         echo $item->prod_id;
-                //     }
-                // }
                 return ["cartData" => $cartData];
             }
             throw new Exception("You don't have any product in the cart");
