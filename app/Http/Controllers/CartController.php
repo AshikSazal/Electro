@@ -69,6 +69,9 @@ class CartController extends Controller
                         'product' => $product,
                     ];
                 }
+                if(count($cartData) === 0){
+                    $user->cartItem()->delete();
+                }
                 return ["cartData" => $cartData];
             }
             throw new Exception("You don't have any product in the cart");
