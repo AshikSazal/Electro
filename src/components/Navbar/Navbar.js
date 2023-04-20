@@ -7,9 +7,9 @@ import logo from "../../icons/logo.png";
 import sign_in from "../../icons/sign_in.png";
 import HeaderCart from "../HeaderCart/HeaderCart";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import "./Navbar.css";
 import ErrorModal from "../Error/ErrorModal";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
