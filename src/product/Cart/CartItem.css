@@ -12,13 +12,13 @@
 
 .details {
   display: flex;
-  width: 40%;
+  width: 30%;
   flex-direction: column;
   justify-content: space-around;
 }
 
 .details li:nth-child(1) {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .details li:nth-child(2) {
   font-size: 1rem;
@@ -31,8 +31,16 @@
   justify-content: space-around;
 }
 
-h1 {
+.action-btn{
+  height: 50px;
+  padding: .5rem;
+  margin: 1rem;
   background-color: #111d4a;
+  font-size: 30px;
+}
+
+.action-btn:hover{
+  background-color: #f1c40f;
 }
 
 @media (max-width: 1000px) {
@@ -43,6 +51,7 @@ h1 {
     background-color: #f1f3f2;
     justify-content: center;
     align-items: center;
+
   }
   .details {
     display: flex;

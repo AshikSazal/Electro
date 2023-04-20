@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import Button from "../shared/FormElements/Button";
 import Card from "../components/Card/Card";
-import { addItemToCart } from "../store/cartSlice";
+import { replaceCart } from "../store/cartSlice";
 import Modal from "../components/Error/Modal";
 import { useAuth } from "../shared/hooks/auth-hook";
 import { useHttpClient } from "../shared/hooks/http-hook";
@@ -33,8 +33,8 @@ const ProductItem = (props) => {
     const formData = new FormData();
     formData.append("id", id);
     formData.append("price", price);
-    formData.append('quantity',1);
-    await sendRequest(
+    formData.append("quantity", 1);
+    const responseData = await sendRequest(
       "http://127.0.0.1:8000/api/user/cart/store",
       "POST",
       formData,
@@ -42,10 +42,21 @@ const ProductItem = (props) => {
         Authorization: "Bearer " + token + "|@|" + role,
       }
     );
+
+    const totalQuantity = responseData.cartData.reduce(
+      (total, item) => total + item.cart.quantity,
+      0
+    );
+    const totalPrice = responseData.cartData.reduce(
+      (total, item) => total + item.cart.price,
+      0
+    );
+
     dispatch(
-      addItemToCart({
-        id,
-        price,
+      replaceCart({
+        items: responseData.cartData,
+        totalQuantity: totalQuantity,
+        totalPrice: totalPrice,
       })
     );
   };

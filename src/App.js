@@ -49,17 +49,20 @@ const App = () => {
         );
 
         const totalQuantity = responseData.cartData.reduce((total, item) => total + item.cart.quantity, 0);
-
+        const totalPrice = responseData.cartData.reduce((total, item) => total + item.cart.price, 0);
+          
         dispatch(
           replaceCart({
-            items: responseData.cartData || [],
+            items: responseData.cartData,
             totalQuantity: totalQuantity,
+            totalPrice: totalPrice
           })
         );
       } catch (err) {}
     };
     fetchCart();
   }, [sendRequest, token, role, dispatch]);
+
 
   let routes;
   if (isLoading) {
@@ -71,8 +74,6 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
-          {/* <Route path="/product/:tv" element={<Television />} /> */}
-          {/* <Route path="/product/:productlist/:id" element={<Television />} /> */}
           <Route path="/service" element={<Service />} />
           <Route path="/policy" element={<Policy />} />
           <Route path="/conditions" element={<Conditions />} />
