@@ -8,8 +8,19 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import "./CartList.css";
 
 const CartList = () => {
+  const [loading, setLoading] = useState(true);
   const cartProduct = useSelector((state) => state.cart);
   const totalPrice = cartProduct.totalPrice || 0;
+
+  useEffect(() => {
+    if(totalPrice>0){
+      setLoading(false);
+    }
+  }, [totalPrice]);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   if (totalPrice <= 0) {
     return (
@@ -32,8 +43,8 @@ const CartList = () => {
                 {cartProduct.items.map((item, index) => (
                   <CartItem
                     key={index}
-                    cart={item.cart || {}}
-                    product={item.product || {}}
+                    cart={item.cart}
+                    product={item.product}
                   />
                 ))}
               </div>
