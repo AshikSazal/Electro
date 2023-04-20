@@ -12,7 +12,9 @@ class CartController extends Controller
 {
     public function storeCartPrduct(Request $req)
     {
-        $newProducts = ['prod_id' => (int) $req->input('id'), 'price' => (float)$req->input('price'), "quantity" => (int) $req->input('quantity')];
+        if((int)$req->input('quantity')===1){
+            $newProducts = ['prod_id' => (int) $req->input('id'), 'price' => (float)$req->input('price'), "quantity" => 1];
+        }
         $userId = $req->attributes->get('user_id');
         $user = User::findOrfail($userId);
         // Any cart item exist for a user
@@ -27,8 +29,12 @@ class CartController extends Controller
             $products = json_decode($user->cartItem->products);
             foreach ($products as $prod) {
                 if ($prod->prod_id === (int) $req->input('id')) {
-                    $prod->quantity = $prod->quantity + 1;
+                    $prod->quantity = $prod->quantity + (int) $req->input('quantity');
                     $prod->price = $prod->quantity * $req->input('price');
+                    if ($prod->quantity === 0) {
+                        $index = array_search($prod, $products);
+                        array_splice($products, $index, 1);
+                    }
                     $flag = 1;
                     break;
                 }
@@ -38,7 +44,6 @@ class CartController extends Controller
             }
             $user->cartItem->products = json_encode($products);
             $user->cartItem->save();
-
         }
         $cartData = $this->fetchCartPrduct();
         $cartData = $cartData["cartData"];
