@@ -13,21 +13,19 @@ const CartList = () => {
   const totalPrice = cartProduct.totalPrice || 0;
 
   useEffect(() => {
-    if(totalPrice>0){
-      setLoading(false);
-    }
+    setLoading(false);
   }, [totalPrice]);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner asOverlay />;
   }
 
   if (totalPrice <= 0) {
     return (
       <div className="no-product">
-        <div className="no-product__selected">No product selected</div>
+        <div className="no-product__selected">There is no cart item</div>
         <div>
-          <Button to={"/product/all"}>Click Here To Shopping</Button>
+          <Button className="no-product__button" to={"/product/all"}>Click Here To Shopping</Button>
         </div>
       </div>
     );

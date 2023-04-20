@@ -32,17 +32,22 @@ ul {
 }
 
 .no-product{
-  margin-top: 30%;
+  margin-top: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30%;
+  margin-bottom: 20%;
+}
+
+.no-product__button{
+  text-decoration: none;
 }
 
 .no-product__selected{
   padding-bottom: 20px;
 }
+
 @media (max-width: 1000px) {
     .cart-product {
       margin-top: 60px;
