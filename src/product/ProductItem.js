@@ -34,7 +34,6 @@ const ProductItem = (props) => {
     formData.append("id", id);
     formData.append("price", price);
     formData.append("quantity", 1);
-    console.log(formData)
     const responseData = await sendRequest(
       "http://127.0.0.1:8000/api/user/cart/store",
       "POST",
