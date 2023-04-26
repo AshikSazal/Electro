@@ -13,8 +13,12 @@ const CartList = () => {
   const totalPrice = cartProduct.totalPrice || 0;
 
   useEffect(() => {
-    setLoading(false);
-  }, [totalPrice]);
+    const timer = setTimeout(() => {
+        setLoading(false);
+    }, 1000); // set a delay of 1000ms
+  
+    return () => clearTimeout(timer);
+  }, []);
 
   if (loading) {
     return <LoadingSpinner asOverlay />;
@@ -22,17 +26,23 @@ const CartList = () => {
 
   if (totalPrice <= 0) {
     return (
-      <div className="no-product">
-        <div className="no-product__selected">There is no cart item</div>
-        <div>
-          <Button className="no-product__button" to={"/product/all"}>Click Here To Shopping</Button>
+      <>
+        {loading && <LoadingSpinner asOverlay />}
+        <div className="no-product">
+          <div className="no-product__selected">There is no cart item</div>
+          <div>
+            <Button className="no-product__button" to={"/product/all"}>
+              Click Here To Shopping
+            </Button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
     <>
+      {loading && <LoadingSpinner asOverlay />}
       <div className="cart-product">
         <div className="cart-list">
           <ul>
@@ -52,7 +62,7 @@ const CartList = () => {
         <div className="check-out">
           <div>
             Your total price:{" "}
-            {totalPrice.toFixed(2) <= 0 ? 0.0 : totalPrice.toFixed(2)}
+            {totalPrice.toFixed(2)}
           </div>
           <div>
             <Button>Check out</Button>

@@ -33,12 +33,11 @@ ul {
 }
 
 .no-product{
-  margin-top: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20%;
+  min-height: 80vh;
 }
 
 .no-product__button{

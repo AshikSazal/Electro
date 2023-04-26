@@ -30,13 +30,6 @@ const App = () => {
   const { token, role } = useAuth();
 
   useEffect(() => {
-    if (!token || !role) {
-      dispatch(replaceCart({ items: [], totalQuantity: 0 }));
-    }
-    setIsLoading(false);
-  }, [dispatch, token, role]);
-
-  useEffect(() => {
     const fetchCart = async () => {
       try {
         const responseData = await sendRequest(
@@ -50,7 +43,7 @@ const App = () => {
 
         const totalQuantity = responseData.cartData.reduce((total, item) => total + item.cart.quantity, 0);
         const totalPrice = responseData.cartData.reduce((total, item) => total + item.cart.price, 0);
-          
+        
         dispatch(
           replaceCart({
             items: responseData.cartData,
@@ -62,6 +55,14 @@ const App = () => {
     };
     fetchCart();
   }, [sendRequest, token, role, dispatch]);
+
+  
+  useEffect(() => {
+    if (!token || !role) {
+      dispatch(replaceCart({ items: [], totalQuantity: 0 }));
+    }
+    setIsLoading(false);
+  }, [dispatch, token, role]);
 
 
   let routes;
