@@ -12,11 +12,12 @@ import ErrorModal from "./components/Error/ErrorModal";
 import Service from "./pages/FooterPages/Service/Service";
 import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
-import Auth from "./user/Pages/Auth";
+import Auth from "./user/Authentication/Auth";
 import ProductList from "./product/ProductList";
 import ProductItem from "./product/ProductItem";
 import Cart from "./pages/Cart/Cart";
 import CartList from "./product/Cart/CartList";
+import Address from "./user/Address/Address";
 import { useAuth } from "./shared/hooks/auth-hook";
 // Admin section
 import Dashboard from "./Admin/Dashboard";
@@ -90,6 +91,7 @@ const App = () => {
           <Route path="/product/:category" element={<ProductList />} />
           <Route path="/product/cart" element={<CartList />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/address" element={<Address />} />
           <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
           <Route path="*" element={<ErrorModal />} />
         </Routes>

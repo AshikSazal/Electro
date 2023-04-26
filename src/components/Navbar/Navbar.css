@@ -216,4 +216,9 @@ body {
     background-color: #f1c40f;
     color: #111d4a;
   }
+
+  .show-logout img {
+    height: 50px;
+    padding-bottom: 10px;
+  }
 }

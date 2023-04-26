@@ -6,9 +6,9 @@ import ImageUpload from "../../../shared/FormElements/ImageUpload";
 import Button from "../../../shared/FormElements/Button";
 import {
   VALIDATOR_MINLENGTH,
-  VALIDATOR_QUANTITY_NUMBER,
+  VALIDATOR_INTEGER_NUMBER,
   VALIDATOR_REQUIRE,
-  VALIDATOR_PRICE_NUMBER,
+  VALIDATOR_FLOAT_NUMBER,
 } from "../../../shared/util/validators";
 import { useForm } from "../../../shared/hooks/form-hook";
 import ErrorModal from "../../../components/Error/ErrorModal";
@@ -118,7 +118,7 @@ const UploadProduct = () => {
                 element="input"
                 type="number"
                 errorText="Please enter a valid price."
-                validators={[VALIDATOR_PRICE_NUMBER()]}
+                validators={[VALIDATOR_FLOAT_NUMBER()]}
                 onInput={inputHandler}
               />
               <Input
@@ -127,7 +127,7 @@ const UploadProduct = () => {
                 element="input"
                 type="number"
                 errorText="Please enter a valid quantity."
-                validators={[VALIDATOR_QUANTITY_NUMBER()]}
+                validators={[VALIDATOR_INTEGER_NUMBER()]}
                 onInput={inputHandler}
               />
               <Input
