@@ -43,7 +43,12 @@ class ProductController extends Controller
         }
     }
 
-    public function fetch($category)
+    public function fetchAdmin()
+    {
+        $product = Product::all();
+        return response(["product" => $product]);
+    }
+    public function fetchUserAllProduct($category)
     {
         // global $product;
         if($category === 'all'){

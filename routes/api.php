@@ -27,9 +27,9 @@ Route::middleware('check.login')->post('/login',[AuthController::class, 'login']
 Route::middleware('check.authentication')->post('/logout',[AuthController::class, 'logout']);
 
 Route::middleware('check.authentication')->post('/product/store',[ProductController::class, 'store']);
-Route::middleware('check.authentication')->get('/product/fetch',[ProductController::class, 'fetch']);
+Route::middleware('check.authentication')->get('/product/admin/fetch',[ProductController::class, 'fetchAdmin']);
 Route::middleware('check.authentication')->delete('/product/delete/{id}',[ProductController::class, 'delete']);
-Route::get('/product/fetch/{category}',[ProductController::class, 'fetch']);
+Route::get('/product/fetch/{category}',[ProductController::class, 'fetchUserAllProduct']);
 
 Route::middleware('check.authentication')->post('/user/cart/store',[CartController::class, 'storeCartPrduct']);
 Route::middleware('check.authentication')->get('/user/cart/fetch',[CartController::class, 'fetchCartPrduct']);
