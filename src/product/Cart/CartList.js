@@ -14,8 +14,10 @@ const CartList = () => {
   const { token, role } = useAuth();
   const cartProduct = useSelector((state) => state.cart);
   const totalPrice = cartProduct.totalPrice || 0;
-  const {isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [address, setAddress] = useState();
+  console.log(cartProduct)
+  console.log(totalPrice)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,23 +35,11 @@ const CartList = () => {
     };
     fetchProduct();
   }, [setAddress, sendRequest, token, role]);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000); // set a delay of 1000ms
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <LoadingSpinner asOverlay />;
-  }
 
   if (totalPrice <= 0) {
     return (
       <>
-        {loading && <LoadingSpinner asOverlay />}
+        {isLoading && <LoadingSpinner asOverlay />}
         <div className="no-product">
           <div className="no-product__selected">There is no cart item</div>
           <div>
@@ -62,9 +52,13 @@ const CartList = () => {
     );
   }
 
+  if (!totalPrice) {
+    return <LoadingSpinner asOverlay />;
+  }
+
   return (
     <>
-      {loading && <LoadingSpinner asOverlay />}
+      {isLoading && <LoadingSpinner asOverlay />}
       <div className="cart-product">
         <div className="cart-list">
           <ul>
@@ -82,10 +76,62 @@ const CartList = () => {
           </ul>
         </div>
         <div className="check-address-out check">
-          {!address && <div className="check-address check">
-            <div><h3>You didn't provide your address. Please fill-up the address form</h3></div>
-            <div><Button to={"/address"} className="no-product__button">Click Here</Button></div>
-          </div>}
+          {!address ? (
+            <div className="check-address check">
+              <div>
+                <h3>
+                  You didn't provide your address. Please fill-up the address
+                  form
+                </h3>
+              </div>
+              <div>
+                <Button to={"/address"} className="no-product__button">
+                  Click Here
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="check-address check">
+              <div className="check-address-table">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Name:</td>
+                      <td>{address.name}</td>
+                    </tr>
+                    <tr>
+                      <td>Post Code:</td>
+                      <td>{address.post}</td>
+                    </tr>
+                    <tr>
+                      <td>Phone:</td>
+                      <td>{address.phone}</td>
+                    </tr>
+                    <tr>
+                      <td>Road:</td>
+                      <td>{address.road}</td>
+                    </tr>
+                    <tr>
+                      <td>Village:</td>
+                      <td>{address.village}</td>
+                    </tr>
+                    <tr>
+                      <td>District:</td>
+                      <td>{address.district}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <Button
+                  to={`address/${address}`}
+                  className="no-product__button"
+                >
+                  Update
+                </Button>
+              </div>
+            </div>
+          )}
           <div className="check-out check">
             <div>Your total price: {totalPrice.toFixed(2)}</div>
             <div>
