@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::get('/product/fetch/{category}',[ProductController::class, 'fetch']);
 Route::middleware('check.authentication')->post('/user/cart/store',[CartController::class, 'storeCartPrduct']);
 Route::middleware('check.authentication')->get('/user/cart/fetch',[CartController::class, 'fetchCartPrduct']);
 
+Route::middleware('check.authentication')->post('/user/address/store',[AddressController::class, 'storeUserAddress']);
+Route::middleware('check.authentication')->get('/user/address/fetch',[AddressController::class, 'fetchUserAddress']);
 
 
 // Without middleware

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Cart;
+use App\Models\Address;
 
 class User extends Authenticatable
 {
@@ -48,5 +49,10 @@ class User extends Authenticatable
     public function cartItem()
     {
         return $this->hasOne(Cart::class);
+    }
+    
+    public function userAddress()
+    {
+        return $this->hasOne(Address::class);
     }
 }
