@@ -16,7 +16,7 @@ const AdminProductList = () => {
     const fetchProduct = async () => {
       try {
         const responseData = await sendRequest(
-          "http://127.0.0.1:8000/api/product/fetch",
+          "http://127.0.0.1:8000/api/product/admin/fetch",
           "GET",
           null,
           {
