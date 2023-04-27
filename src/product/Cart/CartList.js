@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import CartItem from "./CartItem";
 import Card from "../../components/Card/Card";
@@ -10,14 +11,12 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./CartList.css";
 
 const CartList = () => {
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const { token, role } = useAuth();
   const cartProduct = useSelector((state) => state.cart);
   const totalPrice = cartProduct.totalPrice || 0;
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [address, setAddress] = useState();
-  console.log(cartProduct)
-  console.log(totalPrice)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,6 +34,11 @@ const CartList = () => {
     };
     fetchProduct();
   }, [setAddress, sendRequest, token, role]);
+
+  const sendAddressHandler = () => {
+    const data = { address };
+    navigate('/address', { state: { data } });
+  };
 
   if (totalPrice <= 0) {
     return (
@@ -124,7 +128,7 @@ const CartList = () => {
               </div>
               <div>
                 <Button
-                  to={`address/${address}`}
+                  onClick={sendAddressHandler}
                   className="no-product__button"
                 >
                   Update

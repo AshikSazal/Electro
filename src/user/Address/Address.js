@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Input from "../../shared/FormElements/Input";
 import Button from "../../shared/FormElements/Button";
@@ -17,6 +17,9 @@ import "./Address.css";
 
 const Address = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state?.data ?? {};
+  // console.log(data.address.village);
   const { token, role } = useAuth();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
@@ -69,6 +72,8 @@ const Address = () => {
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter a name."
               onInput={inputHandler}
+              initialValue={data?.address?.name || ''}
+              initialValid={!!data?.address?.name}
             />
             <Input
               id="phone"
@@ -78,6 +83,8 @@ const Address = () => {
               errorText="Please enter a valid phone number."
               validators={[VALIDATOR_PHONE_NUMBER()]}
               onInput={inputHandler}
+              initialValue={data?.address?.phone || ''}
+              initialValid={!!data?.address?.phone}
             />
             <Input
               id="post"
@@ -87,6 +94,8 @@ const Address = () => {
               errorText="Please enter a valid post number."
               validators={[VALIDATOR_INTEGER_NUMBER()]}
               onInput={inputHandler}
+              initialValue={data?.address?.post || ''}
+              initialValid={!!data?.address?.post}
             />
             <Input
               id="road"
@@ -96,6 +105,8 @@ const Address = () => {
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter your road name."
               onInput={inputHandler}
+              initialValue={data?.address?.road || ''}
+              initialValid={!!data?.address?.road}
             />
             <Input
               id="village"
@@ -105,6 +116,8 @@ const Address = () => {
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter your village name."
               onInput={inputHandler}
+              initialValue={data?.address?.village || ''}
+              initialValid={!!data?.address?.village}
             />
             <Input
               id="district"
@@ -114,6 +127,8 @@ const Address = () => {
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter your district name."
               onInput={inputHandler}
+              initialValue={data?.address?.district || ''}
+              initialValid={!!data?.address?.district}
             />
           </div>
           <div className="address-button">
