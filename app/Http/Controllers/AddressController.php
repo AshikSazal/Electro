@@ -22,8 +22,19 @@ class AddressController extends Controller
                 'district' => 'required|string|max:255',
             ]);
             $user = User::findOrfail($userId);
-            if(!$user){
+            if (!$user) {
                 throw new Exception("User not found");
+            }
+            if ($user->userAddress()->exists()) {
+                $address = $user->userAddress;
+                $address->name = $req->input('name');
+                $address->phone = $req->input('phone');
+                $address->post = $req->input('post');
+                $address->road = $req->input('road');
+                $address->village = $req->input('village');
+                $address->district = $req->input('district');
+                $address->save();
+                return ["message" => "Updated done"];
             }
             $address = Address::create([
                 "name" => $req->input('name'),
@@ -46,10 +57,10 @@ class AddressController extends Controller
     {
         $userId = request()->attributes->get('user_id');
         $user = User::findOrfail($userId);
-        if(!$user->userAddress()->exists()){
+        if (!$user->userAddress()->exists()) {
             return ['message' => "not found"];
         }
         $address = $user->userAddress;
-        return ["address"=>$address];
+        return ["address" => $address];
     }
 }
