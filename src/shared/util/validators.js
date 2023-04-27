@@ -52,7 +52,7 @@ export const validate = (value, validators) => {
       isValid = isValid && +value>0
     }
     if(validator.type === VALIDATOR_TYPE_INTEGER_NUMBER){
-      isValid = isValid && +value>0 && Number.isInteger(+value)
+      isValid = isValid && Number.isInteger(+value)
     }
     if(validator.type === VALIDATOR_TYPE_PHONE_NUMBER){
       isValid = isValid && Number.isInteger(+value) && value.trim().length === 11
