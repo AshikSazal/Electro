@@ -18,6 +18,8 @@ import ProductItem from "./product/ProductItem";
 import Cart from "./pages/Cart/Cart";
 import CartList from "./product/Cart/CartList";
 import Address from "./user/Address/Address";
+import About from "./pages/About/About";
+import Contact from "./pages/Contact/Contact";
 import { useAuth } from "./shared/hooks/auth-hook";
 // Admin section
 import Dashboard from "./Admin/Dashboard";
@@ -78,6 +80,8 @@ const App = () => {
           <Route exact path="/" element={<Home />} />
           <Route path="/service" element={<Service />} />
           <Route path="/policy" element={<Policy />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/conditions" element={<Conditions />} />
           {role === null ? (
             <Route path="/auth" element={<Auth />} />

@@ -1,0 +1,21 @@
+.contact-us{
+    margin-top: 100px;
+}
+
+.contact-us h1{
+    text-align: center;
+}
+
+.contact-us div{
+    padding: 0 100px;
+}
+
+.contact-us p{
+    font-size: 15px;
+    color: black;
+    text-align: justify;
+}
+
+.contact-us h2{
+    font-size: 20px;
+}

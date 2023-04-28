@@ -1,0 +1,14 @@
+.about-us{
+    margin-top: 100px;
+    padding: 0 100px;
+}
+
+.about-us h1{
+    text-align: center;
+}
+
+.about-us p{
+    font-size: 15px;
+    color: black;
+    text-align: justify;
+}
