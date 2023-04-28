@@ -5,12 +5,16 @@ import { useAuth } from "../../../../shared/hooks/auth-hook";
 import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 import AdminProductItem from "./AdminProductItem";
 import ErrorModal from "../../../../components/Error/ErrorModal";
+import Pagination from "../../../../shared/Pagination/Pagination";
 import "./AdminProductList.css";
 
 const AdminProductList = () => {
   const { token, role } = useAuth();
   const [product, setProduct] = useState([]);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productPerPage, setProductPerPage] = useState(8);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -30,8 +34,16 @@ const AdminProductList = () => {
   }, [setProduct, sendRequest, token, role]);
 
   const productDeletedHandler = (deletedProductId) => {
-    setProduct(prevProducts => prevProducts.filter(prod => prod.id !== deletedProductId));
+    setProduct((prevProducts) =>
+      prevProducts.filter((prod) => prod.id !== deletedProductId)
+    );
   };
+
+  const indexOfLastProduct = currentPage * productPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+  const currentProduct = product.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -52,7 +64,7 @@ const AdminProductList = () => {
             </tr>
           </thead>
           <tbody>
-            {product.map((prod) => (
+            {currentProduct.map((prod) => (
               <AdminProductItem
                 key={prod.id}
                 id={prod.id}
@@ -68,6 +80,12 @@ const AdminProductList = () => {
             ))}
           </tbody>
         </table>
+        <Pagination
+          productPerPage={productPerPage}
+          totalProduct={product.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </div>
     </>
   );

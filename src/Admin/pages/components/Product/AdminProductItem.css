@@ -8,6 +8,7 @@ td {
   text-align: center;
   align-items: center;
 }
+/*
 td:nth-child(1){
   height: 10%;
   width: 10%;
@@ -41,7 +42,7 @@ td:nth-child(9){
   width: 2rem;
   color: red;
 }
-/* td:nth-child(7){
+ td:nth-child(7){
   text-align: right;
   margin: auto;
 } */
