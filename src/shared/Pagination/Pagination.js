@@ -10,16 +10,17 @@ const Pagination = ({productPerPage, totalProduct, paginate, currentPage}) => {
   }
 
   const maxVisiblePages = 5; // number of pages to show before and after the current page
-  const visiblePages = [];
-  if (pageNumbers.length <= maxVisiblePages) {
-    visiblePages.push(...pageNumbers);
-  } else if (currentPage <= maxVisiblePages - 2) {
-    visiblePages.push(...pageNumbers.slice(0, maxVisiblePages - 1), '...', pageNumbers.slice(-1));
-  } else if (currentPage >= pageNumbers.length - maxVisiblePages + 3) {
-    visiblePages.push(pageNumbers[0], '...', ...pageNumbers.slice(-maxVisiblePages + 1));
-  } else {
-    visiblePages.push(pageNumbers[0], '...', ...pageNumbers.slice(currentPage - maxVisiblePages/2 + 1, currentPage + maxVisiblePages/2), '...', pageNumbers.slice(-1));
-  }
+const visiblePages = [];
+if (pageNumbers.length <= maxVisiblePages) {
+  visiblePages.push(...pageNumbers);
+} else if (currentPage <= maxVisiblePages - 2) {
+  visiblePages.push(...pageNumbers.slice(0, maxVisiblePages - 1), '...', pageNumbers.slice(-1));
+} else if (currentPage >= pageNumbers.length - maxVisiblePages + 3) {
+  visiblePages.push(pageNumbers[0], '...', ...pageNumbers.slice(-maxVisiblePages + 1));
+} else {
+  visiblePages.push(pageNumbers[0], '...', ...pageNumbers.slice(currentPage - (maxVisiblePages-2)/2 + 1, currentPage + (maxVisiblePages-2)/2), '...', pageNumbers.slice(-1));
+}
+
   
   return (
     <nav>
