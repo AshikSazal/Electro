@@ -48,10 +48,8 @@ const AdminProductItem = (props) => {
       price: props.price,
       quantity: props.quantity,
       description: props.description,
-      image: props.image
     };
     const data = { product };
-    // console.log(data);
     navigate(`/electro/edit/${props.id}`, { state: { data } });
   };
 
