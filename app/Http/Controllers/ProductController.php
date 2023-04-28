@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function store(Request $req)
+    public function storeProduct(Request $req)
     {
 
         try {
@@ -43,7 +43,7 @@ class ProductController extends Controller
         }
     }
 
-    public function fetchAdmin()
+    public function fetchAdminProduct()
     {
         $product = Product::all();
         return response(["product" => $product]);
@@ -61,7 +61,7 @@ class ProductController extends Controller
         return response(["product" => $product]);
     }
 
-    public function delete($id)
+    public function deleteProduct($id)
     {
         try {
             $product = Product::find($id);

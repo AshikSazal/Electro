@@ -26,9 +26,9 @@ Route::middleware('check.duplication')->post('/register/{role}',[AuthController:
 Route::middleware('check.login')->post('/login',[AuthController::class, 'login']);
 Route::middleware('check.authentication')->post('/logout',[AuthController::class, 'logout']);
 
-Route::middleware('check.authentication')->post('/product/store',[ProductController::class, 'store']);
-Route::middleware('check.authentication')->get('/product/admin/fetch',[ProductController::class, 'fetchAdmin']);
-Route::middleware('check.authentication')->delete('/product/delete/{id}',[ProductController::class, 'delete']);
+Route::middleware('check.authentication')->post('/product/store',[ProductController::class, 'storeProduct']);
+Route::middleware('check.authentication')->get('/product/admin/fetch',[ProductController::class, 'fetchAdminProduct']);
+Route::middleware('check.authentication')->delete('/product/delete/{id}',[ProductController::class, 'deleteProduct']);
 Route::get('/product/fetch/{category}',[ProductController::class, 'fetchUserAllProduct']);
 
 Route::middleware('check.authentication')->post('/user/cart/store',[CartController::class, 'storeCartPrduct']);
