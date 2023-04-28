@@ -19,7 +19,6 @@ const Address = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state?.data ?? {};
-  // console.log(data.address.village);
   const { token, role } = useAuth();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(

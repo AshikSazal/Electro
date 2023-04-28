@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverSharpIcon from "@mui/icons-material/DeleteForeverSharp";
 
@@ -10,6 +11,7 @@ import { useAuth } from "../../../../shared/hooks/auth-hook";
 import "./AdminProductItem.css";
 
 const AdminProductItem = (props) => {
+  const navigate = useNavigate();
   const { token, role } = useAuth();
   const { error, sendRequest, clearError } = useHttpClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -35,6 +37,22 @@ const AdminProductItem = (props) => {
       );
     } catch (err) {}
     props.onDelete(props.id);
+  };
+
+  const sendProductHandler = () => {
+    const product = {
+      id: props.id,
+      name: props.name,
+      brand: props.brand,
+      category: props.category,
+      price: props.price,
+      quantity: props.quantity,
+      description: props.description,
+      image: props.image
+    };
+    const data = { product };
+    // console.log(data);
+    navigate(`/electro/edit/${props.id}`, { state: { data } });
   };
 
   return (
@@ -77,7 +95,7 @@ const AdminProductItem = (props) => {
           <div>{props.description}</div>
         </td>
         <td>
-          <Button className="edit" edit to={`/places/${props.id}`}>
+          <Button className="edit" edit onClick={sendProductHandler}>
             <EditIcon />
           </Button>
         </td>
