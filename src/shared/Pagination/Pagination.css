@@ -9,14 +9,17 @@
 }
 
 .page-link {
-  padding: 5px;
+  padding: 2px 6px;
   font-size: 20px;
   text-decoration: none;
   border: 2px solid #22a4f1;
+  border-radius: 50%;
+  font-weight: bold;
 }
 
 .page-item.active .page-link {
-  color: #f1c40f;
-  text-decoration: underline;
+  color: white;
+  /* text-decoration: underline; */
   border: 5px solid #22a4f1;
+  background-color: #22a4f1;
 }
