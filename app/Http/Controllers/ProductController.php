@@ -53,12 +53,12 @@ class ProductController extends Controller
     public function fetchUserAllProduct($category)
     {
         // global $product;
-        if($category === 'all'){
+        if ($category === 'all') {
             $product = Product::all();
-        }else{
+        } else {
             $cate = ucfirst($category);
             // return $cate;
-            $product = Product::where('category',$cate)->get();
+            $product = Product::where('category', $cate)->get();
         }
         return response(["product" => $product]);
     }
@@ -66,13 +66,29 @@ class ProductController extends Controller
     public function deleteProduct($id)
     {
         try {
-            $product = Product::find($id);
+            $product = Product::findOrFail($id);
             $image_path = public_path('images/' . $product->image_name);
             $product->delete();
             if (file_exists($image_path)) {
                 unlink($image_path);
             }
             return response(["error" => "Delete successfully"]);
+        } catch (Exception $exp) {
+            return response(['error' => $exp->getMessage()]);
+        }
+    }
+
+    public function editProduct(Request $req)
+    {
+        // return $req;
+        $id = $req->input('id');
+        $value = $req->input('value');
+        $type = $req->input('type');
+        try {
+            $product = Product::findOrFail($id);
+            $product[$type] = $value;
+            $product->save();
+            return ["message" => "done"];
         } catch (Exception $exp) {
             return response(['error' => $exp->getMessage()]);
         }
