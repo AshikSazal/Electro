@@ -39,12 +39,12 @@ ul {
 }
 
 .check-address-table{
-  width: 80%;
+  width: 100%;
   margin-bottom: 40px;
 }
 
 .check-address ul li{
-  text-align: left;
+  text-align: center;
 }
 
 .check-address h3{

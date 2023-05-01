@@ -96,7 +96,7 @@ const CartList = () => {
             </div>
           ) : (
             <div className="check-address check">
-              <div className="check-address-table">
+              <div className="check-address-table check">
                 <table>
                   <tbody>
                     <tr>

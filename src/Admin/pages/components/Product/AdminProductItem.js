@@ -6,6 +6,7 @@ import DeleteForeverSharpIcon from "@mui/icons-material/DeleteForeverSharp";
 import Button from "../../../../shared/FormElements/Button";
 import Modal from "../../../../components/Error/Modal";
 import ErrorModal from "../../../../components/Error/ErrorModal";
+import ProductEdit from "./ProductEdit";
 import { useHttpClient } from "../../../../shared/hooks/http-hook";
 import { useAuth } from "../../../../shared/hooks/auth-hook";
 import "./AdminProductItem.css";
