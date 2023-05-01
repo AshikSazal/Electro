@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function storeProduct(Request $req)
     {
-
         try {
-            $role = (int) $req->attributes->get('role');
+            $user = Auth::guard('api')->user();
+            $role = $user->role;
             if ($role !== 1) {
                 throw new Exception("You are not allowed do that");
             }
@@ -48,7 +49,7 @@ class ProductController extends Controller
         $product = Product::all();
         return response(["product" => $product]);
     }
-    
+
     public function fetchUserAllProduct($category)
     {
         // global $product;
