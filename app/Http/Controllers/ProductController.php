@@ -48,6 +48,7 @@ class ProductController extends Controller
         $product = Product::all();
         return response(["product" => $product]);
     }
+    
     public function fetchUserAllProduct($category)
     {
         // global $product;

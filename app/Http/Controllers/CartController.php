@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -15,9 +16,8 @@ class CartController extends Controller
         if((int)$req->input('quantity')===1){
             $newProducts = ['prod_id' => (int) $req->input('id'), 'price' => (float)$req->input('price'), "quantity" => 1];
         }
-        $userId = $req->attributes->get('user_id');
-        $user = User::findOrfail($userId);
-        // Any cart item exist for a user
+        $user = Auth::guard('api')->user();
+        /** @var \App\Models\User $user */
         if (!$user->cartItem()->exists()) {
             $cart = Cart::create([
                 "products" => json_encode([$newProducts]),
@@ -52,8 +52,8 @@ class CartController extends Controller
     public function fetchCartPrduct()
     {
         try {
-            $userId = request()->attributes->get('user_id');
-            $user = User::findOrfail($userId);
+            $user = Auth::guard('api')->user();
+            /** @var \App\Models\User $user */
             if ($user->cartItem()->exists()) {
                 $carts = json_decode($user->cartItem->products);
                 $prodIds = [];

@@ -6,13 +6,17 @@ use App\Models\Address;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
     public function storeUserAddress(Request $req)
     {
         try {
-            $userId = (int) $req->attributes->get('user_id');
+            $user = Auth::guard('api')->user();
+            if (!$user) {
+                throw new Exception("User not found");
+            }
             $req->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string',
@@ -21,10 +25,7 @@ class AddressController extends Controller
                 'village' => 'required|string|max:255',
                 'district' => 'required|string|max:255',
             ]);
-            $user = User::findOrfail($userId);
-            if (!$user) {
-                throw new Exception("User not found");
-            }
+            /** @var \App\Models\User $user */
             if ($user->userAddress()->exists()) {
                 $address = $user->userAddress;
                 $address->name = $req->input('name');
@@ -55,8 +56,11 @@ class AddressController extends Controller
 
     public function fetchUserAddress()
     {
-        $userId = request()->attributes->get('user_id');
-        $user = User::findOrfail($userId);
+        $user = Auth::guard('api')->user();
+        if (!$user) {
+            throw new Exception("User not found");
+        }
+        /** @var \App\Models\User $user */
         if (!$user->userAddress()->exists()) {
             return ['message' => "not found"];
         }

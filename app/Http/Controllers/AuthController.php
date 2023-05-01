@@ -35,15 +35,15 @@ class AuthController extends Controller
     public function login(Request $req)
     {
         try {
-            $user = User::where('email', '=', $req->input('email'))->firstOrFail();
-            if (Hash::check($req->input('password'), $user->password)) {
-                $token = Str::random(30);
-                $user->api_token = $token;
-                $user->save();
-                $token = $token . "|@|" . $user->role;
-                return response()->json(['token' => $token], 200);
+            $user = auth()->user();
+            $user->api_token = Str::random(30);
+            if(!$user){
+                throw new Exception("User not found");
             }
-            throw new Exception("Password is not correct");
+            /** @var \App\Models\User $user */
+            $user->save();
+            $token = $user->api_token . "|@|" . $user->role;
+            return response()->json(['token' => $token], 200);
 
         } catch (Exception $exp) {
             return response()->json([
@@ -51,6 +51,7 @@ class AuthController extends Controller
             ]);
         }
     }
+    
     public function user()
     {
         return Auth::user();
@@ -58,11 +59,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $headerValue = $request->bearerToken();
-        $role = (int)$headerValue[Str::length($headerValue)-1];
-        $token = str_replace(['Bearer ',"|@|$role"], '', $headerValue);
-        $user  = User::where('api_token',$token)->first();
+        $role = (int) $headerValue[Str::length($headerValue) - 1];
+        $token = str_replace(['Bearer ', "|@|$role"], '', $headerValue);
+        $user = User::where('api_token', $token)->first();
         $user->api_token = null;
         $user->save();
-        return response(["message"=>"Logged out"]);
+        return response(["message" => "Logged out"]);
     }
 }

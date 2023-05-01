@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 
 class CheckLogin
@@ -23,14 +24,18 @@ class CheckLogin
     public function handle(Request $req, Closure $next):Response
     {
         try {
-            $req->validate([
+            $validator = Validator::make($req->all(), [
                 'email' => 'required|email',
                 'password' => 'required|string|min:6',
             ]);
+            if ($validator->fails()) {
+                $error = implode(' ', $validator->errors()->all());
+                throw new Exception($error);
+            }
             $email = $req->input('email');
-            $dataExists = User::where('email', $email)->first();
-            if (!$dataExists) {
-                throw new Exception("User Not found");
+            $password = $req->input('password');
+            if(!Auth::attempt(['email'=>$email, 'password'=>$password])){
+                throw new Exception("Invalid Emaill or Password");
             }
         } catch (Exception $exp) {
             return response(["error" => $exp->getMessage()]);

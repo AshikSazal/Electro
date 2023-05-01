@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class CheckDuplicateRegistration
 {
@@ -19,15 +19,14 @@ class CheckDuplicateRegistration
     public function handle(Request $req, Closure $next)
     {
         try {
-            $req->validate([
+            $validator = Validator::make($req->all(), [
                 'name' => 'required|string',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:6',
-            ]);                
-            $email = $req->input('email');
-            $dataExists = User::where('email', $email)->first();
-            if ($dataExists) {
-                throw new Exception("User already exist");
+            ]);
+            if ($validator->fails()) {
+                $error = implode(' ', $validator->errors()->all());
+                throw new Exception($error);
             }
         } catch (Exception $exp) {
             return response(["error" => $exp->getMessage()]);

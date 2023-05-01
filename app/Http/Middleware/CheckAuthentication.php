@@ -7,6 +7,8 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class CheckAuthentication
 {
@@ -21,15 +23,20 @@ class CheckAuthentication
     {
         try {
             $headerValue = $request->header('Authorization');
-            $role = (int)$headerValue[Str::length($headerValue)-1];
-            $token = str_replace(['Bearer ',"|@|$role"], '', $headerValue);
-            $user = User::where('api_token', $token)->where('role', $role)->exists();
-            if (!$user) {
-                throw new Exception("Unauthenticated");
+            if(!$headerValue){
+                throw new Exception('Unathenticated');
             }
-            $user = User::where('api_token', $token)->where('role', $role)->first();
-            $request->attributes->set('role', $role);
-            $request->attributes->set('user_id', $user->id);
+            $parts = explode("|@|", explode("Bearer ", $headerValue)[1]);
+            $token = $parts[0];  
+            
+            // $userProvider = Auth::guard('api')->getProvider();        
+            $userProvider = app('auth')->createUserProvider('users');
+            $user = $userProvider->retrieveByCredentials(['api_token' => $token]);
+
+            if (!$user) {
+                throw new Exception('User not found.');
+            }
+            Auth::guard('api')->setUser($user);
         } catch (Exception $exp) {
             return response([
                 "error" => $exp->getMessage(),
