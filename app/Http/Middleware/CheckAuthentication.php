@@ -28,8 +28,9 @@ class CheckAuthentication
             }
             $parts = explode("|@|", explode("Bearer ", $headerValue)[1]);
             $token = $parts[0];  
-            
-            // $userProvider = Auth::guard('api')->getProvider();        
+
+            // $userProvider = Auth::guard('api')->getProvider();
+            // In config auth.php file there should be 'users' providers
             $userProvider = app('auth')->createUserProvider('users');
             $user = $userProvider->retrieveByCredentials(['api_token' => $token]);
 
