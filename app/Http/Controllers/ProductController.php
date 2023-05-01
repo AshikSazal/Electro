@@ -80,7 +80,6 @@ class ProductController extends Controller
 
     public function editProduct(Request $req)
     {
-        // return $req;
         $id = $req->input('id');
         $value = $req->input('value');
         $type = $req->input('type');

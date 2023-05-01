@@ -35,7 +35,7 @@ class CheckAuthentication
             $user = $userProvider->retrieveByCredentials(['api_token' => $token]);
 
             if (!$user) {
-                throw new Exception('User not found.');
+                throw new Exception('Invalid Credentials');
             }
             Auth::guard('api')->setUser($user);
         } catch (Exception $exp) {
