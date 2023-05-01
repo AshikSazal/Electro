@@ -14,7 +14,7 @@ import "./AdminProductItem.css";
 const AdminProductItem = (props) => {
   const [showInputPrice, setShowInputPrice] = useState(false);
   const [showInputQuantity, setShowInputQuantity] = useState(false);
-  const navigate = useNavigate();
+
   const { token, role } = useAuth();
   const { error, sendRequest, clearError } = useHttpClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -40,20 +40,6 @@ const AdminProductItem = (props) => {
       );
     } catch (err) {}
     props.onDelete(props.id);
-  };
-
-  const sendProductHandler = () => {
-    const product = {
-      id: props.id,
-      name: props.name,
-      brand: props.brand,
-      category: props.category,
-      price: props.price,
-      quantity: props.quantity,
-      description: props.description,
-    };
-    const data = { product };
-    navigate(`/electro/edit/${props.id}`, { state: { data } });
   };
 
   return (
@@ -108,11 +94,6 @@ const AdminProductItem = (props) => {
         {/* <td>{props.quantity}</td> */}
         <td>
           <div>{props.description}</div>
-        </td>
-        <td>
-          <Button className="edit" edit onClick={sendProductHandler}>
-            <EditIcon />
-          </Button>
         </td>
         <td>
           <Button className="delete" danger onClick={showDeleteWarningHandler}>

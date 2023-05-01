@@ -83,7 +83,7 @@ const AdminProductList = () => {
               <th>Price</th>
               <th>Quanity</th>
               <th>Description</th>
-              <th colSpan={2}>Action</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
