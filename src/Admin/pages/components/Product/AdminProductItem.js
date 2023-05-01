@@ -12,6 +12,8 @@ import { useAuth } from "../../../../shared/hooks/auth-hook";
 import "./AdminProductItem.css";
 
 const AdminProductItem = (props) => {
+  const [showInputPrice, setShowInputPrice] = useState(false);
+  const [showInputQuantity, setShowInputQuantity] = useState(false);
   const navigate = useNavigate();
   const { token, role } = useAuth();
   const { error, sendRequest, clearError } = useHttpClient();
@@ -88,8 +90,22 @@ const AdminProductItem = (props) => {
         <td>{props.name}</td>
         <td>{props.brand}</td>
         <td>{props.category}</td>
-        <td>{props.price}</td>
-        <td>{props.quantity}</td>
+        {/* <td>{props.price}</td> */}
+        <td><ProductEdit
+          key={props.id}
+          value={props.price}
+          handleSave={(value) =>props.editProductHandler(props.id,value,"price")}
+          setShowInputEle={setShowInputPrice}
+          showInputEle={showInputPrice}
+        /></td>
+        <td><ProductEdit
+          key={props.id}
+          value={props.quantity}
+          handleSave={(value) =>props.editProductHandler(props.id,value,"quantity")}
+          setShowInputEle={setShowInputQuantity}
+          showInputEle={showInputQuantity}
+        /></td>
+        {/* <td>{props.quantity}</td> */}
         <td>
           <div>{props.description}</div>
         </td>

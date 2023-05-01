@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-function ProductEdit(props) {
+import "./ProductEdit.css";
+
+const ProductEdit = (props) => {
   const [editedValue, setEditedValue] = useState(props.value);
 
   const handleInputChange = (e) => {
@@ -15,6 +17,7 @@ function ProductEdit(props) {
 
   const handleSubmit = () => {
     props.handleSave(editedValue);
+    setEditedValue(editedValue);
     props.setShowInputEle(false);
   };
 
@@ -35,14 +38,15 @@ function ProductEdit(props) {
         />
       ) : (
         <span
-          onDoubleClick={props.handleDoubleClick}
-          style={{ display: "inline-block", height: "25px", minWidth: "300px" }}
+          className="double-click-span hovertext"
+          onDoubleClick={() => props.setShowInputEle(true)}
+          data-hover="Double click to update"
         >
           {props.value}
         </span>
       )}
     </span>
   );
-}
+};
 
 export default ProductEdit;

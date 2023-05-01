@@ -33,6 +33,29 @@ const AdminProductList = () => {
     fetchProduct();
   }, [setProduct, sendRequest, token, role]);
 
+  const editProductHandler = async (id, value, type) => {
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("value", value);
+      formData.append("type", type);
+      await sendRequest(
+        "http://127.0.0.1:8000/api/product/edit",
+        "POST",
+        formData,
+        {
+          Authorization: "Bearer " + token + "|@|" + role,
+        }
+      );
+    } catch (err) {}
+    setProduct((prevProducts) => {
+      const updatedProduct = [...prevProducts];
+      const index = updatedProduct.findIndex((prod) => prod.id === id);
+      updatedProduct[index][type] = value;
+      return updatedProduct;
+    });
+  };
+
   const productDeletedHandler = (deletedProductId) => {
     setProduct((prevProducts) =>
       prevProducts.filter((prod) => prod.id !== deletedProductId)
@@ -76,6 +99,7 @@ const AdminProductList = () => {
                 quantity={prod.quantity}
                 description={prod.description}
                 onDelete={productDeletedHandler}
+                editProductHandler={editProductHandler}
               />
             ))}
           </tbody>
