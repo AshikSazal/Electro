@@ -129,7 +129,7 @@ const CartList = () => {
               <div>
                 <Button
                   onClick={sendAddressHandler}
-                  className="no-product__button"
+                  className="no-product__button update-button"
                 >
                   Update
                 </Button>

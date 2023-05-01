@@ -24,7 +24,7 @@ ul {
 }
 
 .check-address-out {
-  margin: 1rem;
+  /* margin: 1rem; */
   width: 40%;
   height: 20%;
   padding: 1rem 0;
@@ -75,6 +75,9 @@ ul {
 
 .no-product__button {
   text-decoration: none;
+}
+
+.update-button{
   margin-left: 40%;
 }
 
