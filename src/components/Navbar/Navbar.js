@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className="menu-icon" onClick={handleShowNavbar}>
             <img src={menu} alt="" />
           </div>
-          {isLoading && <LoadingSpinner asOverlay />}
+          {/* {isLoading && <LoadingSpinner asOverlay />} */}
           <div className={`nav-elements  ${showNavbar && "active"}`} onClick={showNavbar ? handleShowNavbar : null}>
             <ul>
               <li>
