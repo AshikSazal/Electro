@@ -43,7 +43,7 @@
   background-color: #f1c40f;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   .cart-item {
     margin: 1rem 0;
     display: flex;
