@@ -14,13 +14,13 @@ import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
 import Auth from "./user/Authentication/Auth";
 import ProductList from "./product/ProductList";
-import ProductItem from "./product/ProductItem";
 import Cart from "./pages/Cart/Cart";
 import CartList from "./product/Cart/CartList";
 import Address from "./user/Address/Address";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import { useAuth } from "./shared/hooks/auth-hook";
+import ProductDetails from "./product/ProductDetails/ProductDetails";
 // Admin section
 import Dashboard from "./Admin/Dashboard";
 import { useHttpClient } from "./shared/hooks/http-hook";
@@ -44,14 +44,20 @@ const App = () => {
           }
         );
 
-        const totalQuantity = responseData.cartData.reduce((total, item) => total + item.cart.quantity, 0);
-        const totalPrice = responseData.cartData.reduce((total, item) => total + item.cart.price, 0);
-        
+        const totalQuantity = responseData.cartData.reduce(
+          (total, item) => total + item.cart.quantity,
+          0
+        );
+        const totalPrice = responseData.cartData.reduce(
+          (total, item) => total + item.cart.price,
+          0
+        );
+
         dispatch(
           replaceCart({
             items: responseData.cartData,
             totalQuantity: totalQuantity,
-            totalPrice: totalPrice
+            totalPrice: totalPrice,
           })
         );
       } catch (err) {}
@@ -59,14 +65,12 @@ const App = () => {
     fetchCart();
   }, [sendRequest, token, role, dispatch]);
 
-  
   useEffect(() => {
     if (!token || !role) {
       dispatch(replaceCart({ items: [], totalQuantity: 0 }));
     }
     setIsLoading(false);
   }, [dispatch, token, role]);
-
 
   let routes;
   if (isLoading) {
@@ -88,12 +92,9 @@ const App = () => {
           ) : (
             <Route path="/auth" element={<Navigate replace to="/" />} />
           )}
-          <Route
-            path="/product/:productcategory/:id"
-            element={<ProductItem />}
-          />
-          <Route path="/product/:category" element={<ProductList />} />
           <Route path="/product/cart" element={<CartList />} />
+          <Route path="/product/:category" element={<ProductList />} />
+          <Route path="/product/:category/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/address" element={<Address />} />
           <Route path="/electro/*" element={<Navigate replace to="/auth" />} />

@@ -11,6 +11,39 @@ import { useHttpClient } from "../shared/hooks/http-hook";
 import ErrorModal from "../components/Error/ErrorModal";
 import "./ProductItem.css";
 
+export const addItem = async (id, price, token, role, dispatch, sendRequest) => {
+  const formData = new FormData();
+  formData.append("id", id);
+  formData.append("price", price);
+  formData.append("quantity", 1);
+  const responseData = await sendRequest(
+    "http://127.0.0.1:8000/api/user/cart/store",
+    "POST",
+    formData,
+    {
+      Authorization: "Bearer " + token + "|@|" + role,
+    }
+  );
+
+
+  const totalQuantity = responseData.cartData.reduce(
+    (total, item) => total + item.cart.quantity,
+    0
+  );
+  const totalPrice = responseData.cartData.reduce(
+    (total, item) => total + item.cart.price,
+    0
+  );
+
+  dispatch(
+    replaceCart({
+      items: responseData.cartData,
+      totalQuantity: totalQuantity,
+      totalPrice: totalPrice,
+    })
+  );
+};
+
 const ProductItem = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,36 +63,7 @@ const ProductItem = (props) => {
   const { id, price } = props.item;
 
   const addItemHandler = async () => {
-    const formData = new FormData();
-    formData.append("id", id);
-    formData.append("price", price);
-    formData.append("quantity", 1);
-    const responseData = await sendRequest(
-      "http://127.0.0.1:8000/api/user/cart/store",
-      "POST",
-      formData,
-      {
-        Authorization: "Bearer " + token + "|@|" + role,
-      }
-    );
-
-
-    const totalQuantity = responseData.cartData.reduce(
-      (total, item) => total + item.cart.quantity,
-      0
-    );
-    const totalPrice = responseData.cartData.reduce(
-      (total, item) => total + item.cart.price,
-      0
-    );
-
-    dispatch(
-      replaceCart({
-        items: responseData.cartData,
-        totalQuantity: totalQuantity,
-        totalPrice: totalPrice,
-      })
-    );
+    addItem(id, price, token, role, dispatch, sendRequest);
   };
 
   return (

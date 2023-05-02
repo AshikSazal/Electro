@@ -17,7 +17,7 @@ const MultiCarousel = () => {
     const fetchProduct = async () => {
       try {
         const responseData = await sendRequest(
-          "http://127.0.0.1:8000/api/product/fetch/all",
+          "http://127.0.0.1:8000/api/product/fetch/all/all",
           "GET",
           null,
         );

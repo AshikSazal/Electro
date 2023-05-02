@@ -16,7 +16,7 @@ const ProductList = () => {
     const fetchProduct = async () => {
       try {
         const responseData = await sendRequest(
-          `http://127.0.0.1:8000/api/product/fetch/${category}`,
+          `http://127.0.0.1:8000/api/product/fetch/all/${category}`,
           "GET",
           null
         );
