@@ -7,6 +7,7 @@ import ErrorModal from "../../components/Error/ErrorModal";
 import Button from "../../shared/FormElements/Button";
 import Modal from "../../components/Error/Modal";
 import ShowRating from "./ShowRating";
+import GiveRating from "./GiveRating";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { addItem } from "../ProductItem";
 import { useAuth } from "../../shared/hooks/auth-hook";
@@ -102,6 +103,7 @@ const ProductDetails = () => {
           <p>{product.description}</p>
         </div>
       </div>
+      <GiveRating />
     </>
   );
 };

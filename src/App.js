@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,7 @@ import Service from "./pages/FooterPages/Service/Service";
 import Policy from "./pages/FooterPages/Policy/Policy";
 import Conditions from "./pages/FooterPages/Conditions/Conditions";
 import Auth from "./user/Authentication/Auth";
-import ProductList from "./product/ProductList";
+// import ProductList from "./product/ProductList";
 import Cart from "./pages/Cart/Cart";
 import CartList from "./product/Cart/CartList";
 import Address from "./user/Address/Address";
@@ -21,10 +21,13 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import { useAuth } from "./shared/hooks/auth-hook";
 import ProductDetails from "./product/ProductDetails/ProductDetails";
-// Admin section
-import Dashboard from "./Admin/Dashboard";
 import { useHttpClient } from "./shared/hooks/http-hook";
 import { replaceCart } from "./store/cartSlice";
+// Admin section
+import Dashboard from "./Admin/Dashboard";
+
+const ProductList = React.lazy(()=> import ("./product/ProductList"));
+
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -80,31 +83,33 @@ const App = () => {
       <div>
         {isLoading && <LoadingSpinner asOverlay />}
         <Navbar />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/policy" element={<Policy />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/conditions" element={<Conditions />} />
-          {role === null ? (
-            <Route path="/auth" element={<Auth />} />
-          ) : (
-            <Route path="/auth" element={<Navigate replace to="/" />} />
-          )}
-          <Route path="/product/cart" element={<CartList />} />
-          <Route path="/product/:category" element={<ProductList />} />
-          <Route path="/product/:category/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/address" element={<Address />} />
-          <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
-          <Route path="*" element={<ErrorModal />} />
-        </Routes>
+        <Suspense fallback={<div className="centered"><LoadingSpinner asOverlay /></div>}>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/service" element={<Service />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/conditions" element={<Conditions />} />
+            {role === null ? (
+              <Route path="/auth" element={<Auth />} />
+            ) : (
+              <Route path="/auth" element={<Navigate replace to="/" />} />
+            )}
+            <Route path="/product/cart" element={<CartList />} />
+            <Route path="/product/:category" element={<ProductList />} />
+            <Route path="/product/:category/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/address" element={<Address />} />
+            <Route path="/electro/*" element={<Navigate replace to="/auth" />} />
+            <Route path="*" element={<ErrorModal />} />
+          </Routes>
+        </Suspense>
         <Footer />
       </div>
     );
   } else {
-    routes = <Dashboard />;
+    routes = <Dashboard />
   }
 
   return <>{routes}</>;
